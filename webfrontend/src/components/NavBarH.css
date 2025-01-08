@@ -1,0 +1,40 @@
+/* Global styles */
+.header-nav {
+    display: flex;
+    gap: 2em;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  
+  .header-nav a {
+    text-decoration: none;
+    color: black;
+    font-size: 1em;
+    padding: 0.5em;
+    transition: color 0.3s ease, border-bottom 0.3s ease;
+  }
+  
+  .header-nav a:hover {
+    border-bottom: solid 1px #BB980D;
+    color: #BB980D;
+  }
+  
+  /* Sidebar styles for mobile screens */
+  @media (max-width: 768px) {
+    .header-nav {
+      display: none; /* Hide horizontal menu on smaller screens */
+    }
+  }
+  
+  /* Mobile Sidebar Menu (Drawer) */
+  @media (max-width: 768px) {
+    .MuiDrawer-root {
+      width: 250px;
+      flex-shrink: 0;
+    }
+    .MuiDrawer-paper {
+      width: 250px;
+      background-color: #f5f5f5;
+    }
+  }
+  

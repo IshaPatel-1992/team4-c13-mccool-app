@@ -5,13 +5,13 @@
 import React from 'react';
 import logoImage from '../assets/Tara-Logo-FINAL-taglinegold.png'; // Logo Path
 
-export default function Logo({ size = 100 }) {
+export default function Logo({ width = 200, height = 150 }) {
     return (
         <img 
             src={logoImage} 
-            alt="Logo Icon" 
-            width={size} 
-            height={size} 
+            alt="Tara McCool Leadership" 
+            width={width} 
+            height={height} 
             style={{ display: 'inline-block' }} 
         />
     );

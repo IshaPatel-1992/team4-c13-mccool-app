@@ -7,8 +7,7 @@
   margin: 0 auto;
   padding: 20px;
   box-sizing: border-box;
-  min-height: calc(100vh - 60px); /* Adjust height minus header */
-  margin-top: 60px; /* Adjust top margin based on header height */
+  margin-top: 30px; /* Adjust top margin based on header height */
 }
 
 /* Search container with input and button side by side */
