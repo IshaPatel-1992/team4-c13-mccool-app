@@ -1,0 +1,20 @@
+.login-prompt {
+    display: flex;
+    align-items: center;
+    font-family: "Open Sans", sans-serif;
+}
+
+.login-bar-popup {
+    margin-top: 0.5em;
+    position: absolute;
+    padding: 1em;
+    border: solid 1px black;
+    background-color: white;
+}
+
+.login-bar-popup button {
+    border: none;
+    background-color: white;
+    font-size: 1em;
+
+}

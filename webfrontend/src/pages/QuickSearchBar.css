@@ -1,0 +1,123 @@
+/* Main container to center horizontally and align content at the top */
+.homepage-container {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: flex-start; /* Align to top */
+  flex-direction: column;
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+  min-height: calc(100vh - 60px); /* Adjust height minus header */
+  margin-top: 60px; /* Adjust top margin based on header height */
+}
+
+/* Search container with input and button side by side */
+.search-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center the search container horizontally */
+  width: 100%;
+  max-width: 450px;
+  margin: 0 auto; /* Ensure it's centered within the main container */
+  position: relative;
+}
+
+.search-row {
+  display: flex;
+  width: 100%;
+}
+
+.search-container input {
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 4px 0 0 4px;
+  font-size: 16px;
+  flex: 1;
+  box-sizing: border-box;
+}
+
+.search-container button {
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: 1px solid #007bff;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.search-container button:hover {
+  background-color: #0056b3;
+}
+
+/* Error message below input */
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+  text-align: left;
+  width: 100%;
+}
+
+/* Suggestions dropdown directly below input */
+.suggestions-list {
+  list-style: none;
+  margin: 5px 0 0 0;
+  padding: 0;
+  border: 1px solid #ccc;
+  width: 100%;
+  background-color: #fff;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 10;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.suggestions-list li {
+  padding: 10px;
+  cursor: pointer;
+  text-align: left;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.suggestions-list li:hover {
+  background-color: #f7f7f7;
+}
+
+.suggestions-list li.active {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+
+/* Results container below search bar */
+.result-container {
+  margin: 30px auto 20px auto; /* Top: 30px, Left/Right: auto, Bottom: 20px */
+  /* margin: 0 auto;  Ensure it's centered within the main container */ 
+  width: 100%;
+  max-width: 400px; /* Center the result container and limit its width */
+  text-align: left;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+}
+
+.result-container h4 {
+  text-align: left;
+  margin: 10px 0;
+  font-size: 18px;
+}
+
+.result-container ul {
+  list-style-type: disc;
+  padding: 10px 20px;
+  margin: 0;
+}
+
+.result-container li {
+  margin: 8px 0;
+  font-size: 16px;
+  color: #333;
+}
