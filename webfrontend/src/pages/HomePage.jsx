@@ -1,12 +1,11 @@
 import React from 'react';
 import Navbar from '../components/NavBar';
-import QuickSearchBar from './QuickSearchBar'
+import QuickSearchBar from '../pages/QuickSearchBar'
 
 const App = () => {
   return (
     <div>
       <Navbar />
-      <QuickSearchBar />
     </div>
   );
 };

@@ -5,7 +5,7 @@
 import React from 'react';
 import logoImage from '../assets/Tara-Logo-FINAL-taglinegold.png'; // Logo Path
 
-export default function Logo({ width = 200, height = 150 }) {
+export default function Logo({ width = 150, height = 150 }) {
     return (
         <img 
             src={logoImage} 

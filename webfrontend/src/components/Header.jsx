@@ -1,6 +1,4 @@
 import Logo from "./Logo"
-
-import "./Header.css"
 import LoginBar from "./LoginBar"
 import { WhenLoggedIn } from "../LoginContext"
 import { Link } from "react-router"
