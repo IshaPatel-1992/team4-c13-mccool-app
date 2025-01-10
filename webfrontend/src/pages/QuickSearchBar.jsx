@@ -231,12 +231,12 @@ export default function QuickSearchBar() {
   };
 
   return (
-    <div className="homepage-container">
+    
       <div className="search-container">
         <div className="search-row">
           <input
             type="text"
-            placeholder="Search tips (e.g., 'compassionate leadership')"
+            placeholder="Describe your workplace situation..."
             value={searchQuery}
             onChange={handleInputChange}
             onKeyDown={handleKeyDown} // Handle key navigation
@@ -263,7 +263,6 @@ export default function QuickSearchBar() {
               ))}
             </ul>
           )}
-      </div>
       {result && (
           <div className="result-container">
             <h4>{searchQuery}</h4>

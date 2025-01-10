@@ -1,0 +1,137 @@
+/* Main container for the community update section */
+.community-update {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 10px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+/* Section header */
+.community-update h3 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #1a202c;
+  text-align: center;
+}
+
+/* Cards container (flex layout for multiple cards) */
+.update-cards-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  overflow: hidden; /* Hide cards that are out of view */
+}
+
+/* Individual card styles */
+.update-card {
+  flex: 1; /* Equal width for all cards */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  transition: box-shadow 0.3s ease, transform 0.5s ease;
+  animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.update-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Header containing user info and options */
+.update-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* User information */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+}
+
+.user-name {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+  color: #1a202c;
+}
+
+.update-meta {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* Options menu placeholder */
+.update-options {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* Content area */
+.update-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #eaeaea;
+  height: 100px;
+  border-radius: 8px;
+  position: relative;
+}
+
+.update-image p {
+  font-size: 16px;
+  color: #6b7280;
+  text-align: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .community-update {
+    max-width: 90%;
+    padding: 10px;
+  }
+
+  .update-cards-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .update-card {
+    flex: none;
+    width: 100%;
+  }
+
+  .user-avatar {
+    width: 35px;
+    height: 35px;
+  }
+
+  .update-content {
+    height: 80px;
+  }
+}
