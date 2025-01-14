@@ -9,6 +9,7 @@ import SchoolIcon from '@mui/icons-material/School';
 import PhoneInTalkIcon from '@mui/icons-material/PhoneInTalk';
 import ContactMailIcon from '@mui/icons-material/ContactMail';
 import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
+import AssessmentIcon from '@mui/icons-material/Assessment'; 
 
 import LoginBar from './LoginBar';
 import Logo from './Logo';
@@ -43,6 +44,7 @@ const Navbar = () => {
     { text: 'About Us', icon: <InfoIcon style={{ fontSize: 30 }} />, link: '../pages/AboutUs' },
     { text: 'VIP Call', icon: <PhoneInTalkIcon style={{ fontSize: 30 }} />, link: '/VIPCall' },
     { text: 'Coaching', icon: <SchoolIcon style={{ fontSize: 30 }} />, link: '/Coaching' },
+    { text: 'Self Assessment', icon: <AssessmentIcon style={{ fontSize: 30 }} />, link: '/SelfAssessment' },
     { text: 'Community Feed', icon: <SupervisedUserCircleIcon style={{ fontSize: 30 }} />, link: '/Community' },
     { text: 'Contact Us', icon: <ContactMailIcon style={{ fontSize: 30 }} />, link: '/ContactUs' },
   ];

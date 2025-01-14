@@ -11,9 +11,9 @@ const Container1 = () => {
   };
 
   const ctaItems = [
-    { id: 1, title: "Coaching", icon: <WorkspacePremiumIcon style={{ fontSize: 50 }} /> },
-    { id: 2, title: "Resources", icon: <LibraryBooksIcon style={{ fontSize: 50 }} /> },
-    { id: 3, title: "Goals", icon: <TrackChangesIcon style={{ fontSize: 50 }} /> },
+    { id: 1, title: "Coaching", icon: <WorkspacePremiumIcon style={{ fontSize: 40 }} /> },
+    { id: 2, title: "Resources", icon: <LibraryBooksIcon style={{ fontSize: 40 }} /> },
+    { id: 3, title: "Assessments", icon: <TrackChangesIcon style={{ fontSize: 40 }} /> },
   ];
 
   return (
@@ -35,8 +35,8 @@ const Container1 = () => {
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            width: 150,
-            height: 150,
+            width: 120,
+            height: 120,
             backgroundColor: "#3a6ea5",
             borderRadius: 2,
             boxShadow: 2,

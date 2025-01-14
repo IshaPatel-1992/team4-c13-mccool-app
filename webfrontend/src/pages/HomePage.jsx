@@ -2,14 +2,15 @@ import React from 'react';
 import Navbar from '../components/NavBar';
 import QuickSearchBar from '../pages/QuickSearchBar'
 import Container1 from './Container1';
-import AboutUs from './AboutUs';
+import CommunityUpdate from './CommunityUpdate';
 
 const App = () => {
   return (
     <div>
       <Navbar />
       <Container1 />
-      <QuickSearchBar />               
+      <QuickSearchBar />   
+      <CommunityUpdate />           
   </div>
   );
 };
