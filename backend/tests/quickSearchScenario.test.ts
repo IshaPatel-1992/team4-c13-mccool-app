@@ -8,13 +8,13 @@ describe('quickSearchService.insertOne', () => {
   const quickSearchService = new QuickSearchService();
   it('Insert record for Search Scenarion in to the database', async () => {
     const data = {
-      search_criteria: 'Example criteria',
-      tags: ['tag1', 'tag2'],
-      tips: ['Tip 1', 'Tip 2'],
-      enter_by: 'Isha',
-      enter_date: new Date(),
-      modified_by: 'Isha',
-      modified_date: new Date(),
+      search_criteria: 'compassionate leadership',
+      tags: ['compassionate', 'leadership','compassionate leadership'],
+      tips: ['"Listen actively to your team."', 'Show empathy towards challenges.'],
+      enterBy: 'Isha',
+      enterDt: new Date(),
+      modifyBy: 'Isha',
+      modifyDt: new Date(),
       isEnabled: true,
     };
 

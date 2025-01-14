@@ -7,10 +7,10 @@ const searchScenarioSchema = new Schema<IsearchScenario>({
     search_criteria: { type: String, required: true, unique: true },
     tags: { type: [String], required: true },
     tips: { type: [String], required: true },
-    enter_by: { type: String, required: true },
-    enter_date: { type: Date, required: true },
-    modified_by: { type: String, required: true },
-    modified_date: { type: Date, required: true },
+    enterBy: { type: String, required: true },
+    enterDt: { type: Date, required: true },
+    modifyBy: { type: String, required: true },
+    modifyDt: { type: Date, required: true },
     isEnabled: { type: Boolean, required: true, default: true }
 });
 
