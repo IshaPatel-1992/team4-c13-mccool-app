@@ -1,14 +1,23 @@
-import { Schema } from 'mongoose';
+import { Schema, model } from 'mongoose';
 import IsearchScenario from '../interface/IsearchScenario';
+import  autoIncrement  from 'mongoose-sequence';
 
 const searchScenarioSchema = new Schema<IsearchScenario>({
-    critera: { type: String, required: true, unique: true },
+    //s_id: { type: Number, required: true, unique: true },
+    search_criteria: { type: String, required: true, unique: true },
     tags: { type: [String], required: true },
     tips: { type: [String], required: true },
     enter_by: { type: String, required: true },
     enter_date: { type: Date, required: true },
     modified_by: { type: String, required: true },
-    modified_date: { type: Date, required: true }
+    modified_date: { type: Date, required: true },
+    isEnabled: { type: Boolean, required: true, default: true }
 });
 
+
+
+// Use the auto-increment plugin
+//searchScenarioSchema.plugin(autoIncrement, { inc_field: 's_id' });
+//const SearchScenario = model('SearchScenario', searchScenarioSchema);
+//export default SearchScenario;
 export default searchScenarioSchema;

@@ -60,7 +60,7 @@ describe('dataAccess.updateOne', () => {
   });
 });
 
-describe.only('dataAccess.deleteOne', () => {
+describe('dataAccess.deleteOne', () => {
 
   const dbInstance = new dataAccess<ItestUser>(testUserModel);
 

@@ -2,6 +2,6 @@ import IsearchScenario from "@/interface/IsearchScenario";
 import searchScenarioSchema from "@/schemas/searchScenarioSchema";
 import { model } from "mongoose";
 
-const searchScenariosModel = model<IsearchScenario>("searchScenarios", searchScenarioSchema);
+const searchScenarioModel = model<IsearchScenario>("quick_searchbar1", searchScenarioSchema);
 
-export default searchScenariosModel;
+export default searchScenarioModel;
