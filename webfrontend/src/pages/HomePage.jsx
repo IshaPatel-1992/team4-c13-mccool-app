@@ -7,7 +7,6 @@ import CommunityUpdate from './CommunityUpdate';
 const App = () => {
   return (
     <div>
-      <Navbar />
       <Container1 />
       <QuickSearchBar />   
       <CommunityUpdate />           

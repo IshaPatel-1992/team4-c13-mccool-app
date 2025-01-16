@@ -1,24 +1,35 @@
-import React, { useState } from 'react';
-import { AppBar, Toolbar, IconButton, Typography, Drawer, List, ListItem, ListItemText, ListItemIcon, TextField, Badge } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
-import CloseIcon from '@mui/icons-material/Close';
-import HomeIcon from '@mui/icons-material/Home';
-import InfoIcon from '@mui/icons-material/Info';
-import SchoolIcon from '@mui/icons-material/School';
-import PhoneInTalkIcon from '@mui/icons-material/PhoneInTalk';
-import ContactMailIcon from '@mui/icons-material/ContactMail';
-import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
-import AssessmentIcon from '@mui/icons-material/Assessment'; 
+import React, { useState } from "react";
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
+  Drawer,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemIcon,
+  TextField,
+  Badge,
+} from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import SearchIcon from "@mui/icons-material/Search";
+import CloseIcon from "@mui/icons-material/Close";
+import HomeIcon from "@mui/icons-material/Home";
+import InfoIcon from "@mui/icons-material/Info";
+import SchoolIcon from "@mui/icons-material/School";
+import PhoneInTalkIcon from "@mui/icons-material/PhoneInTalk";
+import ContactMailIcon from "@mui/icons-material/ContactMail";
+import SupervisedUserCircleIcon from "@mui/icons-material/SupervisedUserCircle";
 
-import LoginBar from './LoginBar';
-import Logo from './Logo';
-import { useNavigate } from 'react-router-dom';
+import LoginBar from "./LoginBar";
+import Logo from "./Logo";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false); // State for toggling search input visibility
-  const [searchQuery, setSearchQuery] = useState(''); // State for the search query
+  const [searchQuery, setSearchQuery] = useState(""); // State for the search query
 
   const navigate = useNavigate();
 
@@ -40,22 +51,50 @@ const Navbar = () => {
   };
 
   const menuItems = [
-    { text: 'Homepage', icon: <HomeIcon style={{ fontSize: 30 }} />, link: '../pages/HomePage' },
-    { text: 'About Us', icon: <InfoIcon style={{ fontSize: 30 }} />, link: '../pages/AboutUs' },
-    { text: 'VIP Call', icon: <PhoneInTalkIcon style={{ fontSize: 30 }} />, link: '/VIPCall' },
-    { text: 'Coaching', icon: <SchoolIcon style={{ fontSize: 30 }} />, link: '/Coaching' },
-    { text: 'Self Assessment', icon: <AssessmentIcon style={{ fontSize: 30 }} />, link: '/SelfAssessment' },
-    { text: 'Community Feed', icon: <SupervisedUserCircleIcon style={{ fontSize: 30 }} />, link: '/Community' },
-    { text: 'Contact Us', icon: <ContactMailIcon style={{ fontSize: 30 }} />, link: '/ContactUs' },
+    {
+      text: "Homepage",
+      icon: <HomeIcon style={{ fontSize: 30 }} />,
+      link: "/",
+    },
+    {
+      text: "About Us",
+      icon: <InfoIcon style={{ fontSize: 30 }} />,
+      link: "AboutUs",
+    },
+    {
+      text: "VIP Call",
+      icon: <PhoneInTalkIcon style={{ fontSize: 30 }} />,
+      link: "BookMeeting",
+    },
+    {
+      text: "Coaching",
+      icon: <SchoolIcon style={{ fontSize: 30 }} />,
+      link: "Coaching",
+    },
+    {
+      text: "Community Feed",
+      icon: <SupervisedUserCircleIcon style={{ fontSize: 30 }} />,
+      link: "Community",
+    },
+    {
+      text: "Contact Us",
+      icon: <ContactMailIcon style={{ fontSize: 30 }} />,
+      link: "ContactUs",
+    },
   ];
 
   return (
     <>
       {/* Navigation Bar */}
-      <AppBar position="static" style={{ backgroundColor: '#ffffff' }}>
+      <AppBar position="static" style={{ backgroundColor: "#ffffff" }}>
         <Toolbar>
           {/* Hamburger Menu */}
-          <IconButton edge="start" color="black" aria-label="menu" onClick={() => toggleDrawer(true)}>
+          <IconButton
+            edge="start"
+            color="black"
+            aria-label="menu"
+            onClick={() => toggleDrawer(true)}
+          >
             <MenuIcon style={{ fontSize: 35 }} />
           </IconButton>
 
@@ -73,14 +112,14 @@ const Navbar = () => {
 
           {/* Search Input */}
           {isSearchOpen && (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
               <TextField
                 variant="outlined"
                 size="small"
                 placeholder="Search..."
                 value={searchQuery}
                 onChange={handleSearchChange}
-                style={{ backgroundColor: '#f1f1f1', borderRadius: '4px' }}
+                style={{ backgroundColor: "#f1f1f1", borderRadius: "4px" }}
               />
               <IconButton color="black" onClick={handleSearchToggle}>
                 <CloseIcon style={{ fontSize: 25 }} />
@@ -94,8 +133,14 @@ const Navbar = () => {
       </AppBar>
 
       {/* Side Drawer */}
-      <Drawer anchor="left" open={isDrawerOpen} onClose={() => toggleDrawer(false)}>
-        <div style={{ width: 250 }}> {/* Adjusted for better responsiveness */}
+      <Drawer
+        anchor="left"
+        open={isDrawerOpen}
+        onClose={() => toggleDrawer(false)}
+      >
+        <div style={{ width: 250 }}>
+          {" "}
+          {/* Adjusted for better responsiveness */}
           <List>
             {menuItems.map((item, index) => (
               <ListItem

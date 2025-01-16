@@ -1,0 +1,157 @@
+
+.addUser {
+        width: 25%;
+        margin: 50px auto;
+        background-color: rgb(179, 179, 185);
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.065);
+ }
+
+.addUserForm .inputGroup {
+    width: 100;
+    display: flex;
+    flex-direction: column;
+}
+
+.addUserForm .inputGroup label {
+    margin-top: 10px;
+}
+
+.addUserForm .inputGroup input {
+    margin-top: 5px;
+    padding: 10px;
+}
+
+.inputGroup button {
+    margin-top: 10px;
+}
+
+.login {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.login .btn.btn-primary {
+    width: 50%;
+}
+
+.addUser h3 {
+    text-align: center;
+    font-weight: bold;
+    color: darkcyan;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+
+/* General Styles */
+.addUser {
+    width: 90%; /* Default width for smaller screens */
+    max-width: 400px; /* Restrict the maximum width */
+    margin: 50px auto;
+    background-color: rgb(179, 179, 185);
+    padding: 20px; /* Adjust padding for better responsiveness */
+    border-radius: 10px;
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.065);
+}
+
+.addUserForm .inputGroup {
+    width: 100%; /* Ensure it takes up full container width */
+    display: flex;
+    flex-direction: column;
+}
+
+.addUserForm .inputGroup label {
+    margin-top: 10px;
+    font-size: 1rem; /* Ensure labels are legible on smaller screens */
+}
+
+.addUserForm .inputGroup input {
+    margin-top: 5px;
+    padding: 10px;
+    font-size: 1rem;
+}
+
+.inputGroup button {
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 1rem;
+}
+
+.login {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.login .btn.btn-primary {
+    width: 70%; /* Adjusted for better responsiveness */
+    padding: 10px;
+}
+
+.addUser h3 {
+    text-align: center;
+    font-weight: bold;
+    color: darkcyan;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+    font-size: 1.5rem; /* Adjust heading size for better visibility */
+}
+
+/* Media Queries */
+
+/* iPad & Tablets (Portrait Mode, Widths 600px - 1024px) */
+@media (min-width: 600px) and (max-width: 1024px) {
+    .addUser {
+        width: 60%; /* Increase the width slightly for tablets */
+        padding: 30px; /* Add more padding for better spacing */
+    }
+
+    .addUserForm .inputGroup label,
+    .addUserForm .inputGroup input,
+    .inputGroup button {
+        font-size: 1.1rem; /* Slightly larger font size for readability */
+    }
+
+    .login .btn.btn-primary {
+        width: 60%; /* Adjust button width for tablets */
+    }
+
+    .addUser h3 {
+        font-size: 1.8rem; /* Slightly larger heading for tablet screens */
+    }
+}
+
+/* Desktop (Widths > 1024px) */
+@media (min-width: 1024px) {
+    .addUser {
+        width: 40%; /* Narrower container for desktops */
+        padding: 40px;
+    }
+
+    .addUser h3 {
+        font-size: 2rem; /* Larger heading for desktops */
+    }
+}
+
+/* Phones and Small Screens (Widths < 600px) */
+@media (max-width: 600px) {
+    .addUser {
+        width: 95%; /* Use almost the entire screen width */
+        padding: 15px; /* Reduce padding for smaller screens */
+    }
+
+    .addUserForm .inputGroup label,
+    .addUserForm .inputGroup input,
+    .inputGroup button {
+        font-size: 0.9rem; /* Adjust font size for better fit */
+    }
+
+    .addUser h3 {
+        font-size: 1.2rem; /* Smaller heading for small devices */
+    }
+
+    .login .btn.btn-primary {
+        width: 90%; /* Buttons take up more space on smaller screens */
+    }
+}
