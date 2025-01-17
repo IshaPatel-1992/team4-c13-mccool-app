@@ -1,20 +1,22 @@
 import express from 'express'
-import quickSearchController from '.'
+import quickSearchController from './src/controllers/quickSearchController'
+import mongoose from 'mongoose';
 
-const port = process.env.PORT || 3000
+
 const app = express()
+const port = 3000
 
-//app.use(showRequests)
-//app.use(express.static('../public_html'))
 app.use(express.json())
-
-app.use('/api/quickSearchBar, quickSearchController)
+app.use(express.urlencoded({ extended: true }))
+const quickSearch = new quickSearchController()
+quickSearch.quickSearchbarRoutes(app)
+app.use('/api/quickSearch', quickSearch.quickSearchbarRoutes)
 
 const server = app.listen(port, () => {
-    console.log('Server listening on port ' + port)
+  console.log(`server started at http://localhost:${port}`)
 })
 
 server.on('close',() => {
     console.log('Closing mongo connection')
-    disconnectDb()
+    mongoose.connection.close()
 })

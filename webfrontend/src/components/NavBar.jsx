@@ -13,14 +13,14 @@ import {
   Badge,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import SearchIcon from "@mui/icons-material/Search";
-import CloseIcon from "@mui/icons-material/Close";
 import HomeIcon from "@mui/icons-material/Home";
 import InfoIcon from "@mui/icons-material/Info";
 import SchoolIcon from "@mui/icons-material/School";
 import PhoneInTalkIcon from "@mui/icons-material/PhoneInTalk";
 import ContactMailIcon from "@mui/icons-material/ContactMail";
 import SupervisedUserCircleIcon from "@mui/icons-material/SupervisedUserCircle";
+import MenuBookIcon from "@mui/icons-material/MenuBook";
+import TaskIcon  from "@mui/icons-material/Task";
 
 import LoginBar from "./LoginBar";
 import Logo from "./Logo";
@@ -28,21 +28,11 @@ import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false); // State for toggling search input visibility
-  const [searchQuery, setSearchQuery] = useState(""); // State for the search query
 
   const navigate = useNavigate();
 
   const toggleDrawer = (open) => {
     setIsDrawerOpen(open);
-  };
-
-  const handleSearchToggle = () => {
-    setIsSearchOpen(!isSearchOpen);
-  };
-
-  const handleSearchChange = (event) => {
-    setSearchQuery(event.target.value);
   };
 
   const handleMenuItemClick = (link) => {
@@ -77,6 +67,16 @@ const Navbar = () => {
       link: "Community",
     },
     {
+      text: "Self Assessment", 
+      icon: <TaskIcon   style={{ fontSize: 30 }} />, 
+      link: "SelfAssessment", 
+    },
+    {
+      text: "Resources", 
+      icon: <MenuBookIcon style={{ fontSize: 30 }} />, 
+      link: "Resources", 
+    },
+    {
       text: "Contact Us",
       icon: <ContactMailIcon style={{ fontSize: 30 }} />,
       link: "ContactUs",
@@ -102,31 +102,6 @@ const Navbar = () => {
           <Typography variant="h6" style={{ flexGrow: 1 }}>
             <Logo />
           </Typography>
-
-          {/* Search Icon */}
-          {!isSearchOpen && (
-            <IconButton color="black" onClick={handleSearchToggle}>
-              <SearchIcon style={{ fontSize: 35 }} />
-            </IconButton>
-          )}
-
-          {/* Search Input */}
-          {isSearchOpen && (
-            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <TextField
-                variant="outlined"
-                size="small"
-                placeholder="Search..."
-                value={searchQuery}
-                onChange={handleSearchChange}
-                style={{ backgroundColor: "#f1f1f1", borderRadius: "4px" }}
-              />
-              <IconButton color="black" onClick={handleSearchToggle}>
-                <CloseIcon style={{ fontSize: 25 }} />
-              </IconButton>
-            </div>
-          )}
-
           {/* LoginBar */}
           <LoginBar />
         </Toolbar>

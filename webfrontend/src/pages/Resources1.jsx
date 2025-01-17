@@ -18,7 +18,7 @@ const ResourcesPage = () => {
       id: 2,
       title: "JavaScript Basics",
       description: "Learn the fundamentals of JavaScript programming.",
-      type: "Blog",
+      type: "Video",
       author: "Jane Smith",
       date: "2023-11-20",
     },
@@ -31,7 +31,6 @@ const ResourcesPage = () => {
       date: "2025-01-10",
     },
   ];
-  
 
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
@@ -52,7 +51,7 @@ const ResourcesPage = () => {
 
   return (
     <div className="resources-page">
-      <h1>Resources</h1>
+      <h1>Most Viewed Resources</h1>
       <div className="filters">
         <input
           type="text"
@@ -61,23 +60,20 @@ const ResourcesPage = () => {
           onChange={handleSearchChange}
         />
         <select
-          value={filter.topic}
           onChange={(e) => handleFilterChange("topic", e.target.value)}
+          value={filter.topic}
         >
-          <option value="">All Types</option>
-          <option value="Article">Articles</option>
-          <option value="Book">Books</option>
-          <option value="Video">Videos</option>
-          <option value="Tool">Tools</option>
+          <option value="">All Topics</option>
+          <option value="Article">Article</option>
+          <option value="Video">Video</option>
+          <option value="Tool">Tool</option>
         </select>
-        <select
+        <input
+          type="text"
+          placeholder="Author"
           value={filter.author}
           onChange={(e) => handleFilterChange("author", e.target.value)}
-        >
-          <option value="">All Authors</option>
-          <option value="John Doe">John Doe</option>
-          {/* Add more authors dynamically */}
-        </select>
+        />
         <input
           type="date"
           value={filter.date}
@@ -89,10 +85,19 @@ const ResourcesPage = () => {
           <div className="resource-card" key={resource.id}>
             <h3>{resource.title}</h3>
             <p>{resource.description}</p>
-            <p><strong>Type:</strong> {resource.type}</p>
-            <p><strong>Author:</strong> {resource.author}</p>
-            <p><strong>Date:</strong> {resource.date}</p>
+            <p>
+              <strong>Type:</strong> {resource.type}
+            </p>
+            <p>
+              <strong>Author:</strong> {resource.author}
+            </p>
+            <p>
+              <strong>Date:</strong> {resource.date}
+            </p>
             <button>Mark as Favourite</button>
+            <a href={`/resources/${resource.id}`} className="read-more">
+              Read More
+            </a>
           </div>
         ))}
       </div>

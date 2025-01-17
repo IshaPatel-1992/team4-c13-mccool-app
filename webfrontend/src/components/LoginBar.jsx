@@ -50,16 +50,12 @@ export default function LoginBar() {
           onClick={() => navigate("/login")}
         >
           
-          {/* Notification Icon and Profile Icon */}
-          <IconButton  color="black" aria-label="notifications">
-            <Badge badgeContent={notificationCount} color="error">
-              <NotificationsIcon style={{ fontSize: 35 }}/>
-            </Badge>
-          </IconButton>
+          {/* Profile Icon with Notification Count */}
           <IconButton color="black" aria-label="profile">
+          <Badge badgeContent={notificationCount} color="error">
             <PersonIcon style={{ fontSize: 35 }}/>
-          </IconButton>
-          
+            </Badge>
+          </IconButton>                    
         </div>
       </WhenNotLoggedIn>
     </>

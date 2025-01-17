@@ -18,6 +18,8 @@ import Login from "./pages/Login";
 import BookMeeting from "./pages/BookMeeting";
 import AboutUs from "./pages/AboutUs";
 import Coaching from "./pages/Coaching";
+import SelfAssessment from "./pages/SelfAssessment";
+import ContactUs from "./pages/ContactUs";
 
 function App() {
   return (
@@ -41,6 +43,8 @@ function App() {
           <Route path="UserProfile" element={<UserProfile />} />
           <Route path="AboutUs" element={<AboutUs />} />
           <Route path="Coaching" element={<Coaching />} />
+          <Route path="SelfAssessment" element={<SelfAssessment />} />
+          <Route path="ContactUs" element={<ContactUs />} />
           </Route>  
           </Routes> 
       </WithLogin>

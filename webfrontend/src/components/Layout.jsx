@@ -11,10 +11,6 @@ const Layout = () => {
         {/* This is where the page-specific content will be rendered */}
         <Outlet />
       </main>
-      <footer>
-        {/* Your footer content */}
-        <p>© 2021, Tara McCool. All rights reserved.</p>
-      </footer>
     </div>
   );
 };

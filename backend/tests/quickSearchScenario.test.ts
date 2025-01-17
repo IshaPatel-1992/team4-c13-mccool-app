@@ -2,7 +2,7 @@ import dataAccess from '../src/databaseAccess/dataAccess';
 import IsearchScenario from '../src/interface/IsearchScenario';
 import searchScenarioModel from '../src/models/searchScenarioModel';
 import QuickSearchService from '../src/services/quickSearchService';
-import quickSearchService from '../src/services/quickSearchService';
+
 
 describe('quickSearchService.insertOne', () => {
   const quickSearchService = new QuickSearchService();
@@ -23,6 +23,23 @@ describe('quickSearchService.insertOne', () => {
     expect(result.search_criteria).toBe(data.search_criteria);
   })
 })
+
+//The test case below used my local database to test the getMany method with filter
+//test for getMany with filter
+//get all users with email that contain "ne"
+//use option "i" for case insensitive
+describe.only('dataAccess.getMany', () => {
+
+  const dbInstance = new dataAccess<IsearchScenario>(searchScenarioModel);
+  const quickSearchService = new QuickSearchService();
+  it('should get all search scenarios as user start typing "companss..." from the database', async () => {
+    const result = await dbInstance.getMany({ search_criteria: RegExp("team", "i") });//use option "i" for case insensitive
+    expect(result.length).toBeGreaterThan(0);
+    result.forEach(searchcriteria => {
+      //console.log(searchcriteria.search_criteria);
+      expect(searchcriteria.search_criteria).toMatch(/team/i)});
+  });
+});
 
 /*describe.only('dataAccess.insertOne', () => {
   const dbInstance = new dataAccess<IsearchScenario>(searchScenarioModel);
