@@ -5,7 +5,7 @@ import { FaPhoneAlt, FaCalendarAlt, FaBook, FaChartBar } from "react-icons/fa";
 const FeatureSection = () => {
   return (
     <div className="main-container">
-      <h3 className="section-header">Our Features</h3>
+      { /* <h3 className="section-header">Our Features</h3> */ }
       <div className="card-container">
         <div className="card">
           <FaPhoneAlt className="card-icon" />
