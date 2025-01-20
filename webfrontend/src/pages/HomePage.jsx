@@ -1,17 +1,15 @@
-import React from 'react';
-import Navbar from '../components/NavBar';
-import QuickSearchBar from '../pages/QuickSearchBar'
-import Container1 from './Container1';
-import CommunityUpdate from './CommunityUpdate';
+import React from "react";
+import "./HomePage.css"; 
+import HeroSection from '@components/HeroSection';
+import QuickSearchBar from '@components/QuickSearchBar';
+import FeatureSection from "../components/FeatureSection";
 
-const App = () => {
+export default function HomePage() {
   return (
-    <div>
-      <Container1 />
-      <QuickSearchBar />   
-      <CommunityUpdate />           
-  </div>
+    <div className="home-page">
+      <HeroSection />
+      <QuickSearchBar />
+      <FeatureSection />      
+    </div>
   );
-};
-
-export default App;
+}

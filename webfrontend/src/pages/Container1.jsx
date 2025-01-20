@@ -11,9 +11,9 @@ const Container1 = () => {
   };
 
   const ctaItems = [
-    { id: 1, title: "Coaching", icon: <WorkspacePremiumIcon style={{ fontSize: 50 }} /> },
-    { id: 2, title: "Resources", icon: <LibraryBooksIcon style={{ fontSize: 50 }} /> },
-    { id: 3, title: "Assessments", icon: <TrackChangesIcon style={{ fontSize: 50 }} /> },
+    { id: 1, title: "Coaching", icon: <WorkspacePremiumIcon style={{ fontSize: 20 }} /> },
+    { id: 2, title: "Resources", icon: <LibraryBooksIcon style={{ fontSize: 20 }} /> },
+    { id: 3, title: "Assessments", icon: <TrackChangesIcon style={{ fontSize: 20 }} /> },
   ];
 
   return (

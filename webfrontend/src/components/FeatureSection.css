@@ -1,0 +1,63 @@
+/* Main Feature Section Container */
+.feature-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; /* Ensure space between items */
+  align-items: stretch;
+  margin: 20px auto;
+  padding: 20px;
+  width: 90%;
+  max-width: 1200px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  text-align: center;
+  gap: 15px; /* Space between cards */
+}
+
+/* Common Styling for All Cards */
+.feature-item,
+.feature-card {
+  flex: 1 1 calc(25% - 15px); /* Take 25% of the row width, considering gap */
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-item:hover,
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Icon Styling */
+.feature-icon {
+  font-size: 40px;
+  color: #3a6ea5;
+  margin-bottom: 15px;
+}
+
+.feature-item h3,
+.feature-card h3 {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.feature-item p,
+.feature-card p {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.5;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .feature-item,
+  .feature-card {
+    flex: 1 1 100%; /* Stack items on smaller screens */
+    margin-bottom: 20px;
+  }
+}

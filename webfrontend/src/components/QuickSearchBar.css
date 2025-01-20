@@ -1,0 +1,144 @@
+/* General styles for search container */
+.search-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; /* Ensure space between items */
+  align-items: stretch;
+  margin: 20px auto;
+  padding: 20px;
+  width: 90%;
+  max-width: 1200px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  text-align: center;
+  gap: 15px; /* Space between cards */
+}
+/*.search-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    width: 90%; 
+    max-width: 450px; 
+    margin: 0 auto; 
+    position: relative;
+    padding: 20px;
+  } */
+  
+  /* Adjust search input and button layout for different screen sizes */
+  .search-row {
+    display: flex;
+    flex-direction: column; /* Stack input and button vertically by default */
+    width: 100%; /* Full width of the container */
+  }
+  
+  .search-container input {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 16px;
+    flex: 1;
+    box-sizing: border-box;
+    margin-bottom: 10px; /* Space between input and button in vertical layout */
+    width: 100%; /* Ensure it takes full width of its parent */
+  }
+  
+  .search-container button {
+    padding: 10px 15px;
+    background-color: #3a6ea5;
+    color: white;
+    border: 1px solid #3a6ea5;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%; /* Full width on small screens */
+  }
+  
+  .search-container button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Result container should match the width of the search container */
+  .result-container {
+    margin: 20px auto; /* Add space between search box and results */
+    width: 100%;
+    max-width: 1200px; /* Restrict to the same max width */
+    text-align: left;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+  }
+  
+  .result-container h4 {
+    text-align: left;
+    margin: 10px 0;
+    font-size: 18px;
+  }
+  
+  .result-container ul {
+    list-style-type: disc;
+    padding: 10px 20px;
+    margin: 0;
+  }
+  
+  .result-container li {
+    margin: 8px 0;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  /* Suggestions dropdown directly below input */
+  .suggestions-list {
+    list-style: none;
+    margin: 5px 0 0 0;
+    padding: 0;
+    border: 1px solid #ccc;
+    width: 100%; /* Match the container width */
+    background-color: #fff;
+    position: absolute;
+    top: 100%; /* Place the suggestions right below the input */
+    left: 0;
+    z-index: 1;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-height: 200px;
+    overflow-y: auto; /* Scrollable suggestions */
+  }
+  
+  .suggestions-list li {
+    padding: 10px;
+    cursor: pointer;
+    text-align: left;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  
+  .suggestions-list li:hover {
+    background-color: #f7f7f7;
+  }
+  
+  .suggestions-list li.active {
+    background-color: #f0f0f0;
+    font-weight: bold;
+  }
+  
+  /* Responsive design: Horizontal layout for larger screens */
+  @media (min-width: 768px) {
+    .search-row {
+      flex-direction: row; /* Input and button side by side */
+    }
+  
+    .search-container input {
+      border-radius: 4px 0 0 4px; /* Rounded corners for input */
+      margin-bottom: 0; /* Remove vertical spacing in row layout */
+    }
+  
+    .search-container button {
+      border-radius: 0 4px 4px 0; /* Rounded corners for button */
+      width: auto; /* Button takes its natural width */
+    }
+  
+    .result-container {
+      max-width: 600px; /* Increase result container max-width for large screens */
+    }
+  }
+  

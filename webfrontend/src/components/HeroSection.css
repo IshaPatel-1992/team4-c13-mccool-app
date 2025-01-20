@@ -1,0 +1,86 @@
+/* HeroSection.css */
+
+/* Importing the Arimo font */
+@import url('https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&display=swap');
+
+/* General styles for the Hero Section */
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 60vh; /* Use percentage for responsiveness */
+    min-height: 100px; /* Ensure a minimum height for smaller devices */
+    background-color: #f0f0f0;
+    overflow: hidden;
+    font-family: 'Arimo', sans-serif; /* Applying the Arimo font */
+}
+
+/* Hero Image styling */
+.hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+/* Hero Content styling */
+.hero-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #fff;
+    padding: 0 15px; /* Add padding for smaller screens */
+    box-sizing: border-box;
+}
+
+/* Header styling */
+.hero-content h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    color: #006299; /* Branding color for the header */
+}
+
+/* Paragraph styling */
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    color: #41b86a; /* Branding color for the paragraph */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-section {
+        height: 50vh; /* Adjust height for smaller screens */
+    }
+
+    .hero-content h1 {
+        font-size: 2rem; /* Reduce font size for smaller screens */
+    }
+
+    .hero-content p {
+        font-size: 1rem; /* Reduce font size for paragraph */
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-section {
+        height: 40vh; /* Further reduce height for extra small devices */
+    }
+
+    .hero-content h1 {
+        font-size: 1.8rem; /* Smaller font size for extra small devices */
+    }
+
+    .hero-content p {
+        font-size: 0.9rem; /* Smaller paragraph text */
+        margin-bottom: 15px;
+    }
+}

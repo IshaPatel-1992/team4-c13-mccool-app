@@ -1,0 +1,76 @@
+/* Main Container */
+.main-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Section Header */
+  .section-header {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #1a202c;
+    text-align: center;
+  }
+  
+  /* Shared Card Container */
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 15px;
+    overflow: hidden; /* Prevent overflow for cards */
+  }
+  
+  /* Shared Card Styles */
+  .card {
+    flex: 1 1 calc(25% - 15px); /* Default: Four cards in a row */
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Card Icon */
+  .card-icon {
+    font-size: 40px;
+    color: #3a6ea5;
+    margin-bottom: 15px;
+  }
+  
+  /* Card Title */
+  .card-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  /* Card Description */
+  .card-description {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.5;
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .card {
+      flex: 1 1 100%; /* Stack cards on smaller screens */
+      margin-bottom: 20px;
+    }
+  }
+  

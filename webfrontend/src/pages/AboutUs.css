@@ -1,59 +1,40 @@
 .aboutus-container {
-  font-family: Arial, sans-serif;
-  color: #1a202c;
-  margin: 0;
-  padding: 0;
-}
-
-/* Banner Section */
-.banner {
-  width: 100%;
-  height: 400px; /* Adjust the height as needed */
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
-  position: relative;
+  padding: 20px;
+  background-color: #f8f9fa; /* Light background for the container */
 }
 
-.banner-text {
-  font-size: 36px;
-  font-weight: bold;
-  margin: 0;
+.aboutus-card {
+  background-color: #fff; /* Card background */
+  border: 1px solid #ddd; /* Subtle border */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
+  max-width: 800px; /* Limit card width */
+  padding: 20px;
+  text-align: center;
 }
 
-/* Content Section */
-.content {
-  max-width: 800px;
-  margin: 20px auto;
-  padding: 10px 20px;
-  text-align: left;
-}
-
-.content h2 {
+.aboutus-title {
+  font-family: "Arimo", sans-serif;
   font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 10px;
+  color: #006299; /* Use the brand color */
+  margin-bottom: 15px;
 }
 
-.content p {
-  line-height: 1.6;
+.aboutus-image {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 8px; /* Rounded image corners */
+  margin-bottom: 20px;
+}
+
+.aboutus-description {
+  font-family: "Arimo", sans-serif;
   font-size: 16px;
-  color: #4a5568;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .banner {
-    height: 200px;
-  }
-
-  .banner-text {
-    font-size: 28px;
-  }
-
-  .content {
-    padding: 10px;
-  }
+  color: #333;
+  line-height: 1.6;
+  text-align: justify;
 }

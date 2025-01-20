@@ -1,13 +1,14 @@
 import React, { useState, useCallback } from "react";
 import debounce from "lodash.debounce";
-import "../pages/QuickSearchBar.css";
+import "./QuickSearchBar.css";
+import { FaSearch } from "react-icons/fa";
 
-export default function QuickSearchBar() {
-  const [searchQuery, setSearchQuery] = useState(""); // State for User's search query
-  const [result, setResult] = useState(null); // State for Search Results
-  const [suggestions, setSuggestions] = useState([]); // State for suggestions
-  const [error, setError] = useState(""); // State for validation errors
-  const [activeIndex, setActiveIndex] = useState(-1); // State for active suggestion index
+const QuickSearchBar = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [result, setResult] = useState(null);
+  const [suggestions, setSuggestions] = useState([]);
+  const [error, setError] = useState("");
+  const [activeIndex, setActiveIndex] = useState(-1);
 
   const tips = {
     "compassionate leadership": [
@@ -168,10 +169,9 @@ export default function QuickSearchBar() {
       setResult(["No tips found. Try another query."]);
     }
     setSuggestions([]);
-    setActiveIndex(-1); // Reset active index
+    setActiveIndex(-1);
   };
 
-  // Real-time suggestions update
   const updateSuggestions = (query) => {
     if (query.trim().length < 3) {
       setError("Keep typing... Minimum 3 characters required.");
@@ -179,101 +179,97 @@ export default function QuickSearchBar() {
       return;
     }
 
-    setError(""); // Clear the error
-
+    setError("");
     const filteredSuggestions = Object.keys(tips).filter((key) =>
       key.toLowerCase().includes(query.toLowerCase())
     );
     setSuggestions(filteredSuggestions);
   };
 
-  // Debounced version of the suggestion handler
   const debouncedUpdateSuggestions = useCallback(
-    debounce((query) => updateSuggestions(query), 300), // Adjust the debounce delay (in ms)
+    debounce((query) => updateSuggestions(query), 300),
     []
   );
 
-  // Handle real-time input change
   const handleInputChange = (e) => {
     const query = e.target.value;
     setSearchQuery(query);
-
-    // Call the debounced function
     debouncedUpdateSuggestions(query);
   };
 
   const handleSuggestionClick = (suggestion) => {
     setSearchQuery(suggestion);
     setSuggestions([]);
-    setResult(null); // Clear previous results
-    setError(""); // Clear any existing error
+    setResult(null);
+    setError("");
   };
 
   const handleKeyDown = (e) => {
     if (suggestions.length === 0) return;
 
     if (e.key === "ArrowDown") {
-      // Move down in suggestions
-      setActiveIndex((prevIndex) => Math.min(prevIndex + 1, suggestions.length - 1));
+      setActiveIndex((prevIndex) =>
+        Math.min(prevIndex + 1, suggestions.length - 1)
+      );
     } else if (e.key === "ArrowUp") {
-      // Move up in suggestions
       setActiveIndex((prevIndex) => Math.max(prevIndex - 1, 0));
     } else if (e.key === "Enter" && activeIndex !== -1) {
-      // Select the active suggestion
       setSearchQuery(suggestions[activeIndex]);
       setSuggestions([]);
-      setActiveIndex(-1); // Reset active index
+      setActiveIndex(-1);
     } else if (e.key === "Escape") {
-      // Close suggestions
       setSuggestions([]);
       setActiveIndex(-1);
     }
   };
 
- 
-  return (    
-      <div className="search-container">
-        <div className="search-row">
-          <input
-            type="text"
-            placeholder="Describe your workplace situation..."
-            value={searchQuery}
-            onChange={handleInputChange}
-            onKeyDown={handleKeyDown} // Handle key navigation
-            aria-label="Search tips input field"
-          />
-          <button type="button" onClick={handleSearch} aria-label="Search tips button">
-              Search
-            </button>
-        </div>
-        {error && <p className="error-message" role="alert">{error}</p>}
+  return (
+    <div className="search-container">
+      <div className="search-row">
+        <input
+          type="text"
+          placeholder="How can we help you improve today?"
+          className="search-input"
+          value={searchQuery}
+          onChange={handleInputChange}
+          onKeyDown={handleKeyDown}
+          aria-label="Search tips input field"
+        />
+        <button className="search-button" onClick={handleSearch}>
+          <FaSearch /> Search
+        </button>
+      </div>
 
-        {suggestions.length > 0 && (
-            <ul className="suggestions-list" role="listbox">
-              {suggestions.map((suggestion, index) => (
-                <li
-                  key={index}
-                  role="option"
-                  aria-selected={activeIndex === index} // Mark active suggestion
-                  className={activeIndex === index ? "active" : ""}
-                  onClick={() => handleSuggestionClick(suggestion)}
-                >
-                  {suggestion}
-                </li>
-              ))}
-            </ul>
-          )}
-      {result && (
-          <div className="result-container">
-            <h4>{searchQuery}</h4>
-            <ul>
-              {result.map((tip, index) => (
-                <li key={index}>{tip}</li>
-              ))}
-            </ul>
-          </div>
-        )}
+      {error && <p className="error-message" role="alert">{error}</p>}
+
+      {suggestions.length > 0 && (
+        <ul className="suggestions-list" role="listbox">
+          {suggestions.map((suggestion, index) => (
+            <li
+              key={index}
+              role="option"
+              aria-selected={activeIndex === index}
+              className={activeIndex === index ? "active" : ""}
+              onClick={() => handleSuggestionClick(suggestion)}
+            >
+              {suggestion}
+            </li>
+          ))}
+        </ul>
+      )}
+
+{result && (
+        <div className="result-container">
+          <h4>{searchQuery}</h4>
+          <ul>
+            {result.map((tip, index) => (
+              <li key={index}>{tip}</li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
-}
+};
 
+export default QuickSearchBar;
