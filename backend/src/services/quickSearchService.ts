@@ -1,6 +1,6 @@
-import DataAccess from "@/databaseAccess/dataAccess";
-import IsearchScenario from "@/interface/IsearchScenario";
-import searchScenarioModel from "@/models/searchScenarioModel";
+import DataAccess from "../databaseAccess/dataAccess";
+import IsearchScenario from "../interface/IsearchScenario";
+import searchScenarioModel from "../models/searchScenarioModel";
 
 class QuickSearchService extends DataAccess<IsearchScenario> {
   constructor() {
