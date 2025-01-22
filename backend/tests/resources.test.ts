@@ -1,7 +1,7 @@
 import DataAccess from "@/databaseAccess/dataAccess";
 import Iresources from "@/interface/Iresources";
 import resourcesModel from "@/models/resourcesModel";
-import resources from '@/services/resources';
+import resources from '@/services/resourcesService';
 
 
 describe('resources.insertOne', () => {

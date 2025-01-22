@@ -1,8 +1,8 @@
-import DataAccess from "@/databaseAccess/dataAccess";
-import Iresources from "@/interface/Iresources";
-import resourcesModel from "@/models/resourcesModel";
+import DataAccess from "../databaseAccess/dataAccess"
+import Iresources from "../interface/Iresources";
+import resourcesModel from "../models/resourcesModel";
 
-class resources extends DataAccess<Iresources> {
+class resourcesService extends DataAccess<Iresources> {
   constructor() {
     super(resourcesModel);
   }
@@ -11,8 +11,13 @@ class resources extends DataAccess<Iresources> {
     return super.getOne(id);
   }
 
-  async getMany(filter: object = {}): Promise<Iresources[]> {
+  /*async getMany(filter: object = {}): Promise<Iresources[]> {
     return super.getMany(filter);
+  }*/
+
+  async getMany(filter: object = {}): Promise<Iresources[]> {
+      const results = await super.getMany(filter);
+      return Array.isArray(results) ? results : []; // Ensure it always returns an array
   }
 
   async insertOne(data: Partial<Iresources>): Promise<Iresources> {
@@ -32,4 +37,4 @@ class resources extends DataAccess<Iresources> {
   }
 }
 
-export default resources;
+export default resourcesService;
