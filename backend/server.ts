@@ -1,15 +1,17 @@
 import express from 'express'
 import quickSearchController from './src/controllers/quickSearchController'
+import resourcesController from './src/controllers/resourcesController';  
 import mongoose from 'mongoose';
 
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 4000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 quickSearchController.quickSearchRoutes(app);
+resourcesController.resourcesRoutes(app);
 
 const server = app.listen(port, () => {
   console.log(`server started at http://localhost:${port}`)
