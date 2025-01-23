@@ -1,103 +1,100 @@
-import React, { useState } from "react";
-import "./ResourcesPage.css";
+import React, { useState, useEffect } from "react";
+import "./ResourcesPage.css"; // Add CSS styles for the page
+
 
 const ResourcesPage = () => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [filter, setFilter] = useState({ topic: "", author: "", date: "" });
+    const [searchQuery, setSearchQuery] = useState("");
+    const [filter, setFilter] = useState({ contentType: "", tags: "" });
+    const [resources, setResources] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
 
-  const resources = [
-    {
-      id: 1,
-      title: "Understanding React",
-      description: "A comprehensive guide to mastering React.js.",
-      type: "Article",
-      author: "John Doe",
-      date: "2024-05-15",
-    },
-    {
-      id: 2,
-      title: "JavaScript Basics",
-      description: "Learn the fundamentals of JavaScript programming.",
-      type: "Blog",
-      author: "Jane Smith",
-      date: "2023-11-20",
-    },
-    {
-      id: 3,
-      title: "Web Development Tools",
-      description: "Top tools to boost your productivity as a web developer.",
-      type: "Tool",
-      author: "Tech Innovators",
-      date: "2025-01-10",
-    },
-  ];
-  
+    const fetchResources = async () => {
+        setLoading(true);
+        setError("");
 
-  const handleSearchChange = (event) => {
-    setSearchQuery(event.target.value);
-  };
+        try {
+            const params = new URLSearchParams();
+            if (searchQuery) params.append("query", searchQuery);
+            if (filter.contentType) params.append("contentType", filter.contentType);
+            if (filter.tags) params.append("tags", filter.tags);
 
-  const handleFilterChange = (key, value) => {
-    setFilter((prev) => ({ ...prev, [key]: value }));
-  };
+            // Fetch resources from the API
+            const apiEndpoint = `/api/resources${params.toString() ? `?${params.toString()}` : ""}`;
+            const response = await fetch(apiEndpoint);
 
-  const filteredResources = resources.filter((resource) => {
+            if (!response.ok) {
+                throw new Error(`Failed to fetch resources: ${response.status} ${response.statusText}`);
+            }
+
+            // Log and parse the response conditionally
+            const rawText = await response.text();
+            console.log("Raw response text:", rawText);
+
+            try {
+                const data = JSON.parse(rawText);
+                console.log("Parsed JSON data:", data);
+                return data;
+            } catch (error) {
+                console.warn("Failed to parse JSON, returning raw text.");
+                return rawText; // Return raw text if JSON parsing fails
+            }
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchResources();
+    }, [searchQuery, filter]);
+
+    const handleSearchChange = (event) => {
+        setSearchQuery(event.target.value);
+    };
+
+    const handleFilterChange = (key, value) => {
+        setFilter((prev) => ({ ...prev, [key]: value }));
+    };
+
     return (
-      resource.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
-      (!filter.topic || resource.type === filter.topic) &&
-      (!filter.author || resource.author === filter.author) &&
-      (!filter.date || resource.date === filter.date)
+        <div className="resources-page">
+            <h1>Resources</h1>
+            <div className="filters">
+                <input
+                    type="text"
+                    placeholder="Search..."
+                    value={searchQuery}
+                    onChange={handleSearchChange}
+                />
+                <select
+                    value={filter.contentType}
+                    onChange={(e) => handleFilterChange("contentType", e.target.value)}
+                >
+                    <option value="">All Types</option>
+                    <option value="Article">Articles</option>
+                    <option value="Book">Books</option>
+                    <option value="Video">Videos</option>
+                    <option value="Tool">Tools</option>
+                </select>
+            </div>
+            <div className="resource-list">
+                {loading && <p>Loading resources...</p>}
+                {error && <p className="error">{error}</p>}
+                {!loading && !error && resources.length === 0 && <p>No resources found.</p>}
+                {!loading && !error && resources.map((resource) => (
+                    <div className="resource-card" key={resource.id}>
+                        <h3>{resource.title}</h3>
+                        <p>{resource.description}</p>
+                        <p><strong>Type:</strong> {resource.contentType}</p>
+                        <button>Mark as Favourite</button>
+                        <button>View</button>
+                    </div>
+                ))}
+            </div>
+        </div>
     );
-  });
-
-  return (
-    <div className="resources-page">
-      <h1>Resources</h1>
-      <div className="filters">
-        <input
-          type="text"
-          placeholder="Search..."
-          value={searchQuery}
-          onChange={handleSearchChange}
-        />
-        <select
-          value={filter.topic}
-          onChange={(e) => handleFilterChange("topic", e.target.value)}
-        >
-          <option value="">All Types</option>
-          <option value="Article">Articles</option>
-          <option value="Book">Books</option>
-          <option value="Video">Videos</option>
-          <option value="Tool">Tools</option>
-        </select>
-        <select
-          value={filter.author}
-          onChange={(e) => handleFilterChange("author", e.target.value)}
-        >
-          <option value="">All Authors</option>
-          <option value="John Doe">John Doe</option>
-          {/* Add more authors dynamically */}
-        </select>
-        <input
-          type="date"
-          value={filter.date}
-          onChange={(e) => handleFilterChange("date", e.target.value)}
-        />
-      </div>
-      <div className="resource-list">
-        {filteredResources.map((resource) => (
-          <div className="resource-card" key={resource.id}>
-            <h3>{resource.title}</h3>
-            <p>{resource.description}</p>
-            <p><strong>Type:</strong> {resource.type}</p>
-            <p><strong>Author:</strong> {resource.author}</p>
-            <p><strong>Date:</strong> {resource.date}</p>
-            <button>Mark as Favourite</button>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
 };
 
 export default ResourcesPage;
