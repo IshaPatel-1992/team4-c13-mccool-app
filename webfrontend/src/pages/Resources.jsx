@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import "./ResourcesPage.css"; // Add CSS styles for the page
 
@@ -12,35 +13,44 @@ const ResourcesPage = () => {
     const fetchResources = async () => {
         setLoading(true);
         setError("");
-
+    
         try {
             const params = new URLSearchParams();
             if (searchQuery) params.append("query", searchQuery);
             if (filter.contentType) params.append("contentType", filter.contentType);
             if (filter.tags) params.append("tags", filter.tags);
-
+    
+            // Log the request details
+            const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:4000";
+            const apiEndpoint = `${API_BASE_URL}/api/resources${params.toString() ? `?${params.toString()}` : ""}`;
+            //const apiEndpoint = `http://localhost:4000/api/resources${params.toString() ? `?${params.toString()}` : ""}`;
+            //console.log("Fetching resources with URL:", apiEndpoint);
+    
             // Fetch resources from the API
-            const apiEndpoint = `/api/resources${params.toString() ? `?${params.toString()}` : ""}`;
             const response = await fetch(apiEndpoint);
-
+    
+            // Log the response type and status
+            //console.log("Response type:", response.type);
+            //console.log("Response status:", response.status);
+    
             if (!response.ok) {
                 throw new Error(`Failed to fetch resources: ${response.status} ${response.statusText}`);
             }
-
-            // Log and parse the response conditionally
+    
             const rawText = await response.text();
-            console.log("Raw response text:", rawText);
-
+            //console.log("Raw response text:", rawText);
+    
             try {
                 const data = JSON.parse(rawText);
-                console.log("Parsed JSON data:", data);
-                return data;
+                //console.log("Parsed JSON data:", data);
+                setResources(data);
             } catch (error) {
                 console.warn("Failed to parse JSON, returning raw text.");
-                return rawText; // Return raw text if JSON parsing fails
+                setResources([]); // Optionally handle raw text as a fallback
             }
         } catch (err) {
             setError(err.message);
+            console.error("Error fetching resources:", err);
         } finally {
             setLoading(false);
         }
@@ -89,7 +99,6 @@ const ResourcesPage = () => {
                         <p>{resource.description}</p>
                         <p><strong>Type:</strong> {resource.contentType}</p>
                         <button>Mark as Favourite</button>
-                        <button>View</button>
                     </div>
                 ))}
             </div>
