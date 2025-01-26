@@ -1,32 +1,46 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom"; // Import useParams from React Router
+import { useParams } from "react-router-dom"; 
 import "./ResourceDetailPage.css";
 
-// Replace with your actual API endpoint to fetch resource details
 const API_BASE_URL2 = import.meta.env.VITE_API_BASE_URL || "http://localhost:4000";
 
 const ResourceDetailPage = () => {
-  const { id } = useParams(); // Get the id from the URL parameters
+  const { id } = useParams(); 
   const [resource, setResource] = useState(null);
   const [selectedOption, setSelectedOption] = useState("read");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
+  // Validate the ID format
+  const validateIdFormat = (id) => {
+    const idRegex = /^[0-9a-fA-F]{24}$/;  // Example: check if ID is a 24-character hex string (MongoDB ObjectId)
+    return idRegex.test(id);
+  };
+
   useEffect(() => {
     const fetchResource = async () => {
       if (!id) {
         setError("Resource ID is missing.");
+        setLoading(false);
         return;
       }
+
+      // Validate ID format before fetching
+      if (!validateIdFormat(id)) {
+        setError("Invalid ID format.");
+        setLoading(false);
+        return;
+      }
+
       setLoading(true);
       setError("");
       try {    
-        console.log("fetching resource with id:", id);
+        console.log("Fetching resource with id:", id);
         const response = await fetch(`${API_BASE_URL2}/api/resources/${id}`);
-        console.log("response", response);
-
+        
         if (!response.ok) {
-          throw new Error(`Failed to fetch resource: ${response.status} ${response.statusText}`);
+          const errorText = await response.text();
+          throw new Error(`Failed to fetch resource: ${response.status} ${response.statusText}. ${errorText}`);
         }
 
         const data = await response.json();
@@ -40,7 +54,7 @@ const ResourceDetailPage = () => {
     };
 
     fetchResource();
-  }, [id]); // Dependency array ensures the fetch runs when the id changes
+  }, [id]); 
 
   if (loading) {
     return <div>Loading...</div>;
