@@ -1,28 +1,57 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom"; // Import useParams from React Router
 import "./ResourceDetailPage.css";
 
-// Mock data for a resource (replace with dynamic data)
-const mockResource = {
-  title: "Sample Resource Title",
-  description: "This is a detailed description of the resource.",
-  content: {
-    read: "This is the full text content of the resource. You can read this here.",
-    video: "https://www.w3schools.com/html/mov_bbb.mp4", // URL for a sample video
-    download: "https://www.w3.org/WAI/WCAG21/quickref.zip", // Example download link
-  },
-};
+// Replace with your actual API endpoint to fetch resource details
+const API_BASE_URL2 = import.meta.env.VITE_API_BASE_URL || "http://localhost:4000";
 
 const ResourceDetailPage = () => {
+  const { id } = useParams(); // Get the id from the URL parameters
   const [resource, setResource] = useState(null);
   const [selectedOption, setSelectedOption] = useState("read");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    // Simulate fetching resource data (replace with real API call)
-    setResource(mockResource);
-  }, []);
+    const fetchResource = async () => {
+      if (!id) {
+        setError("Resource ID is missing.");
+        return;
+      }
+      setLoading(true);
+      setError("");
+      try {    
+        console.log("fetching resource with id:", id);
+        const response = await fetch(`${API_BASE_URL2}/api/resources/${id}`);
+        console.log("response", response);
+
+        if (!response.ok) {
+          throw new Error(`Failed to fetch resource: ${response.status} ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        setResource(data);
+      } catch (err) {
+        setError(err.message);
+        console.error("Error fetching resource:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchResource();
+  }, [id]); // Dependency array ensures the fetch runs when the id changes
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div className="error">{error}</div>;
+  }
 
   if (!resource) {
-    return <div>Loading...</div>;
+    return <div>No resource found.</div>;
   }
 
   const handleOptionChange = (option) => {

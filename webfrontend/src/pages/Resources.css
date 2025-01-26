@@ -1,0 +1,116 @@
+/* ResourcesPage.css */
+
+:root {
+  --primary-color: #006299;
+  --secondary-color: #41b86a;
+  --tertiary-color: #5d72dd;
+  --accent-color: #ff970d;
+  --font-family: 'Arimo', sans-serif;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: #f9f9f9;
+  margin: 0;
+  padding: 0;
+}
+
+.resources-page {
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h1 {
+  text-align: center;
+  color: var(--primary-color);
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.filters input,
+.filters select {
+  padding: 10px;
+  border: 2px solid var(--primary-color);
+  border-radius: 5px;
+  font-size: 16px;
+  width: 300px;
+}
+
+.resource-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.resource-card {
+  background: white;
+  color: var(--primary-color);
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-align: center;
+}
+
+.resource-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.resource-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: var(--secondary-color);
+}
+
+.resource-card p {
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.icon {
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: var(--tertiary-color);
+  transition: color 0.3s;
+}
+
+.icon:hover {
+  color: var(--accent-color);
+}
+
+.loading-message,
+.error-message {
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--primary-color);
+}
+
+.error-message {
+  color: red;
+}
+
+.no-resources {
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--secondary-color);
+}
