@@ -17,6 +17,7 @@ import AboutUs from "./pages/AboutUs";
 import Coaching from "./pages/Coaching";
 import ContactUs from "./pages/ContactUs";
 import ResourceDetailPage from "./pages/ResourceDetailPage";
+import SelfAssessment from "./pages/SelfAssessment";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
             <Route path="Coaching" element={<Coaching />} />
             <Route path="ContactUs" element={<ContactUs />} />
             <Route path="/resources/:id" element={<ResourceDetailPage />} />
+            <Route path="SelfAssessment" element={<SelfAssessment />} />
             
             {/* Default route for undefined paths */}
             <Route path="*" element={<Navigate to="/" />} />
