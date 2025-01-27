@@ -13,7 +13,7 @@ const ResourceDetailPage = () => {
 
   // Validate the ID format
   const validateIdFormat = (id) => {
-    const idRegex = /^[0-9a-fA-F]{24}$/;  // Example: check if ID is a 24-character hex string (MongoDB ObjectId)
+    const idRegex = /^[0-9a-fA-F]{24}$/; // Example: check if ID is a 24-character hex string (MongoDB ObjectId)
     return idRegex.test(id);
   };
 
@@ -35,8 +35,9 @@ const ResourceDetailPage = () => {
       setLoading(true);
       setError("");
       try {    
-        console.log("Fetching resource with id:", id);
+        //console.log("Fetching resource with id:", id);
         const response = await fetch(`${API_BASE_URL2}/api/resources/${id}`);
+        //console.log("Response:", response);
         
         if (!response.ok) {
           const errorText = await response.text();
@@ -44,6 +45,7 @@ const ResourceDetailPage = () => {
         }
 
         const data = await response.json();
+        console.log("Fetched resource data:", data);
         setResource(data);
       } catch (err) {
         setError(err.message);
@@ -68,6 +70,9 @@ const ResourceDetailPage = () => {
     return <div>No resource found.</div>;
   }
 
+  // Ensure `content` is defined
+  const { content = {} } = resource; // Default to an empty object if `content` is undefined
+
   const handleOptionChange = (option) => {
     setSelectedOption(option);
   };
@@ -87,26 +92,34 @@ const ResourceDetailPage = () => {
         {selectedOption === "read" && (
           <div>
             <h2>Read Content</h2>
-            <p>{resource.content.read}</p>
+            <p>{content.read || "No content available for reading."}</p>
           </div>
         )}
 
         {selectedOption === "watch" && (
           <div>
             <h2>Watch Video</h2>
-            <video width="600" controls>
-              <source src={resource.content.video} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
+            {content.video ? (
+              <video width="600" controls>
+                <source src={content.video} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            ) : (
+              <p>No video available.</p>
+            )}
           </div>
         )}
 
         {selectedOption === "download" && (
           <div>
             <h2>Download Resource</h2>
-            <a href={resource.content.download} download>
-              Click here to download the resource
-            </a>
+            {content.download ? (
+              <a href={content.download} download>
+                Click here to download the resource
+              </a>
+            ) : (
+              <p>No downloadable content available.</p>
+            )}
           </div>
         )}
       </div>

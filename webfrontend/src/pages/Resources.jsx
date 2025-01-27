@@ -58,7 +58,7 @@ const ResourcesPage = () => {
     };
 
     const handleViewClick = (id) => {
-        navigate(`/resources/:id`); // Navigate to the resource detail page
+        navigate(`/resources/${id}`); // Navigate to the resource detail page
     };
 
     return (
@@ -87,7 +87,8 @@ const ResourcesPage = () => {
                 {error && <p className="error">{error}</p>}
                 {!loading && !error && resources.length === 0 && <p>No resources found.</p>}
                 {!loading && !error && resources.map((resource) => (
-                    <div className="resource-card" key={resource.id}>
+                    <div className="resource-card" key={resource.id || resource._id}>
+                        <h4>{resource.id || resource._id }</h4>
                         <h3>{resource.title}</h3>
                         <p>{resource.description}</p>
                         <p><strong>Type:</strong> {resource.contentType}</p>
@@ -97,7 +98,7 @@ const ResourcesPage = () => {
                             <Eye 
                                 className="icon" 
                                 title="View" 
-                                onClick={() => handleViewClick(resource.id)} // Navigate on click
+                                onClick={() => handleViewClick(resource.id || resource._id)} // Navigate on click
                             />
                             <Download className="icon" title="Download" />
                         </div>

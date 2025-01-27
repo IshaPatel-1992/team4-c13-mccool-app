@@ -9,7 +9,7 @@ import {
   Route,
   Routes,
 } from "react-router-dom";
-import Resources from "./pages/Resources";
+import ResourcesPage from "./pages/Resources";
 import UserProfile from "./pages/UserProfile";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
@@ -31,11 +31,12 @@ function App() {
             <Route index element={<HomePage />} />
             <Route path="Signup" element={<Signup />} />
             <Route path="Login" element={<Login />} />
-            <Route path="Resources" element={<Resources />} />
+            { /* <Route path="Resources" element={<Resources />} />*/ }
             <Route path="UserProfile" element={<UserProfile />} />
             <Route path="AboutUs" element={<AboutUs />} />
             <Route path="Coaching" element={<Coaching />} />
             <Route path="ContactUs" element={<ContactUs />} />
+            <Route path="/resources" element={<ResourcesPage />} />
             <Route path="/resources/:id" element={<ResourceDetailPage />} />
             <Route path="SelfAssessment" element={<SelfAssessment />} />
             
