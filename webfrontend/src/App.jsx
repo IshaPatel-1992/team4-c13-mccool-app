@@ -16,7 +16,7 @@ import Login from "./pages/Login";
 import AboutUs from "./pages/AboutUs";
 import Coaching from "./pages/Coaching";
 import ContactUs from "./pages/ContactUs";
-import ResourceDetailPage from "./pages/ResourceDetailPage";
+import ResourceDetailPage from "./pages/ResourceDetailPage.jsx";
 import SelfAssessment from "./pages/SelfAssessment";
 
 function App() {

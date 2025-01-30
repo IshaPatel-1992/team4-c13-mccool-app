@@ -1,18 +1,19 @@
-import { Document, Number } from 'mongoose';
+import { Document } from 'mongoose';
 
 export default interface Iresources extends Document {
-    title: String,
-    description: String,
-    category: String,
-    contentType: String,
-    contentURL: String[],
-    thumbnailURL: String[],
-    author: String,
-    publishedDt: String,
-    tags: String[],
-    enterBy: String,
-    enterDt: Date,
-    modifyBy: String,
-    modifyDt: Date,
-    isEnabled: Boolean 
+    title: string;
+    description: string;
+    category: string;
+    contentType: 'article' | 'video' | 'blog' | 'podcast' | 'book' | 'other';
+    content?: string; // Required only if contentType is 'article'
+    contentURL?: string[]; // Required only if contentType is not 'article'
+    thumbnailURL: string[];
+    author: string;
+    publishedDt: Date;
+    tags: string[];
+    enterBy: string;
+    enterDt: Date;
+    modifyBy: string;
+    modifyDt: Date;
+    isEnabled: boolean;
 }

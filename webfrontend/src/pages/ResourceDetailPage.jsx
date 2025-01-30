@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom"; 
+import { useParams } from "react-router-dom";
+import { FaThumbsUp, FaBookmark, FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import "./ResourceDetailPage.css";
 
 const API_BASE_URL2 = import.meta.env.VITE_API_BASE_URL || "http://localhost:4000";
 
 const ResourceDetailPage = () => {
-  const { id } = useParams(); 
+  const { id } = useParams();
   const [resource, setResource] = useState(null);
-  const [selectedOption, setSelectedOption] = useState("read");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // Validate the ID format
   const validateIdFormat = (id) => {
-    const idRegex = /^[0-9a-fA-F]{24}$/; // Example: check if ID is a 24-character hex string (MongoDB ObjectId)
+    const idRegex = /^[0-9a-fA-F]{24}$/;
     return idRegex.test(id);
   };
 
@@ -25,7 +24,6 @@ const ResourceDetailPage = () => {
         return;
       }
 
-      // Validate ID format before fetching
       if (!validateIdFormat(id)) {
         setError("Invalid ID format.");
         setLoading(false);
@@ -34,32 +32,27 @@ const ResourceDetailPage = () => {
 
       setLoading(true);
       setError("");
-      try {    
-        //console.log("Fetching resource with id:", id);
+      try {
         const response = await fetch(`${API_BASE_URL2}/api/resources/${id}`);
-        //console.log("Response:", response);
-        
         if (!response.ok) {
           const errorText = await response.text();
           throw new Error(`Failed to fetch resource: ${response.status} ${response.statusText}. ${errorText}`);
         }
 
         const data = await response.json();
-        console.log("Fetched resource data:", data);
         setResource(data);
       } catch (err) {
         setError(err.message);
-        console.error("Error fetching resource:", err);
       } finally {
         setLoading(false);
       }
     };
 
     fetchResource();
-  }, [id]); 
+  }, [id]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="loading">Loading...</div>;
   }
 
   if (error) {
@@ -70,58 +63,95 @@ const ResourceDetailPage = () => {
     return <div>No resource found.</div>;
   }
 
-  // Ensure `content` is defined
-  const { content = {} } = resource; // Default to an empty object if `content` is undefined
-
-  const handleOptionChange = (option) => {
-    setSelectedOption(option);
-  };
-
-  return (
-    <div className="resource-detail-page">
-      <h1>{resource.title}</h1>
-      <p>{resource.description}</p>
-
-      <div className="options">
-        <button onClick={() => handleOptionChange("read")}>Read</button>
-        <button onClick={() => handleOptionChange("watch")}>Watch</button>
-        <button onClick={() => handleOptionChange("download")}>Download</button>
-      </div>
-
-      <div className="content">
-        {selectedOption === "read" && (
+  // Destructure resource safely with fallback values
+  const { title, description, contentType, contentURL, content, author, publishedDt } = resource;
+  console.log(contentURL);
+  const renderContentByType = () => {
+    // Handle the case when only contentURL is available
+    if (contentURL) {
+      if (contentType === 'video') {
+        return (
           <div>
-            <h2>Read Content</h2>
-            <p>{content.read || "No content available for reading."}</p>
+            <p>
+              <a href={contentURL} target="_blank" rel="noopener noreferrer">
+                Watch Video
+              </a>
+            </p>
           </div>
-        )}
-
-        {selectedOption === "watch" && (
+        );
+      }
+  
+      return (
+        <div>
+          <p>
+            <a href={contentURL} target="_blank" rel="noopener noreferrer">
+              {contentType === 'podcast' ? 'Listen to Podcast' : 'Read Blog'}
+            </a>
+          </p>
+        </div>
+      );
+    }
+  
+    // Handle the case when content is available but not contentURL
+    if (!content) return <p>No content available.</p>;
+  
+    switch (contentType) {
+      case 'article':
+        return <p>{content.read || "No article content available."}</p>;
+  
+      case 'video':
+        return (
           <div>
-            <h2>Watch Video</h2>
-            {content.video ? (
-              <video width="600" controls>
+            {content.video && (
+              <video width="100%" controls>
                 <source src={content.video} type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
-            ) : (
-              <p>No video available.</p>
             )}
           </div>
-        )}
+        );
+  
+      case 'book':
+        return contentURL ? (
+          <p>
+            <a href={contentURL} target="_blank" rel="noopener noreferrer">
+              Get the Book here
+            </a>
+          </p>
+        ) : (
+          <p>No book URL available.</p>
+        );
+  
+      default:
+        return <p>Content type not recognized.</p>;
+    }
+  };
+  
 
-        {selectedOption === "download" && (
-          <div>
-            <h2>Download Resource</h2>
-            {content.download ? (
-              <a href={content.download} download>
-                Click here to download the resource
-              </a>
-            ) : (
-              <p>No downloadable content available.</p>
-            )}
-          </div>
-        )}
+  return (
+    <div className="resource-detail-page">
+      <div className="resource-card">
+        <h1>{title}</h1>
+        <p>{description}</p>
+        <p><strong>Author:</strong> {author || 'Unknown Author'}</p>
+        <p><strong>Published on:</strong> {publishedDt ? new Date(publishedDt).toLocaleDateString() : 'Date not available'}</p>
+
+        {/* Render content based on contentType */}
+        <div className="content">
+          <p><strong>ContentType:</strong> {contentType.charAt(0).toUpperCase() + contentType.slice(1)}</p>
+          { /* <h2>{contentType.charAt(0).toUpperCase() + contentType.slice(1)} Content</h2> */ }
+          {renderContentByType()}
+        </div>
+
+        <div className="actions">
+          <button className="action-btn"><FaThumbsUp /> Like</button>
+          <button className="action-btn"><FaBookmark /> Bookmark</button>
+        </div>
+
+        <div className="navigation">
+          <button className="nav-btn"><FaArrowLeft /> Previous</button>
+          <button className="nav-btn">Next <FaArrowRight /></button>
+        </div>
       </div>
     </div>
   );

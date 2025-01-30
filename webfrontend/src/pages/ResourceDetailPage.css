@@ -1,54 +1,205 @@
+/* General styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
+}
+
 .resource-detail-page {
-    padding: 20px;
-    max-width: 900px;
-    margin: 0 auto;
-    font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.resource-card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 900px;
+  padding: 20px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 1rem;
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+/* Options buttons */
+.options {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.options button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.options button:hover {
+  background-color: #0056b3;
+}
+
+/* Content sections */
+.content {
+  margin-bottom: 20px;
+}
+
+.content h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.content p {
+  font-size: 1rem;
+}
+
+.content-video,
+.content-download a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.content-video:hover,
+.content-download a:hover {
+  text-decoration: underline;
+}
+
+/* Actions buttons */
+.actions {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.action-btn {
+  background-color: #f0f0f0;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  border: none;
+  transition: background-color 0.3s;
+}
+
+.action-btn:hover {
+  background-color: #ddd;
+}
+
+/* Navigation buttons */
+.navigation {
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav-btn {
+  background-color: #f0f0f0;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  border: none;
+  transition: background-color 0.3s;
+}
+
+.nav-btn:hover {
+  background-color: #ddd;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .resource-card {
+    padding: 15px;
   }
-  
+
   h1 {
-    font-size: 2em;
+    font-size: 1.8rem;
+  }
+
+  .options {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .options button {
     margin-bottom: 10px;
   }
-  
+
+  .content h2 {
+    font-size: 1.3rem;
+  }
+
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .action-btn {
+    margin-bottom: 10px;
+  }
+
+  .navigation {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .nav-btn {
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.5rem;
+  }
+
   p {
-    font-size: 1.2em;
-    margin-bottom: 20px;
+    font-size: 0.9rem;
   }
-  
-  .options {
-    margin-bottom: 20px;
+
+  .options button {
+    padding: 8px 12px;
   }
-  
-  button {
-    margin: 0 10px;
-    padding: 10px 20px;
-    font-size: 1em;
-    cursor: pointer;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
+
+  .content p {
+    font-size: 0.9rem;
   }
-  
-  button:hover {
-    background-color: #0056b3;
+
+  .content-video,
+  .content-download a {
+    font-size: 0.9rem;
   }
-  
-  .content {
-    margin-top: 20px;
+
+  .action-btn {
+    font-size: 0.9rem;
+    padding: 8px 12px;
   }
-  
-  video {
-    max-width: 100%;
-    border-radius: 8px;
+
+  .nav-btn {
+    font-size: 0.9rem;
+    padding: 8px 12px;
   }
-  
-  a {
-    font-size: 1.1em;
-    color: #007bff;
-  }
-  
-  a:hover {
-    text-decoration: underline;
-  }
-  
+}

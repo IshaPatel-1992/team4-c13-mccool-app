@@ -3,13 +3,20 @@ import Iresources from '../interface/Iresources';
 
 const resourcesSchema = new Schema<Iresources>({
     title: { type: String, required: true, unique: true },
-    description: { type: String, required: true},
-    category: { type: String, required: true},
-    contentType: { type: String, required: true},
-    contentURL: { type: [String], required: true},
+    description: { type: String, required: true },
+    category: { type: String, required: true },
+    contentType: { type: String, required: true, enum: ['article', 'video', 'blog', 'podcast','book','other'] },
+    content: { 
+        type: String, 
+        required: function() { return this.contentType === 'article'; } 
+    },
+    contentURL: { 
+        type: [String], 
+        required: function() { return this.contentType !== 'article'; } 
+    },
     thumbnailURL: { type: [String], required: true },
-    author: { type: String, required: true},
-    publishedDt: { type: Date, required: true},
+    author: { type: String, required: true },
+    publishedDt: { type: Date, required: true },
     tags: { type: [String], required: true },
     enterBy: { type: String, required: true },
     enterDt: { type: Date, required: true },
@@ -18,6 +25,5 @@ const resourcesSchema = new Schema<Iresources>({
     isEnabled: { type: Boolean, required: true, default: true }
 });
 
-
 export default resourcesSchema;
-//export default model<Iresources>('resources', resourcesSchema);
+// export default model<Iresources>('resources', resourcesSchema);
