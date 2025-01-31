@@ -18,6 +18,7 @@ import Coaching from "./pages/Coaching";
 import ContactUs from "./pages/ContactUs";
 import ResourceDetailPage from "./pages/ResourceDetailPage.jsx";
 import SelfAssessment from "./pages/SelfAssessment";
+import AdminResources from "./pages/AdminResources.jsx";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
             <Route path="/resources" element={<ResourcesPage />} />
             <Route path="/resources/:id" element={<ResourceDetailPage />} />
             <Route path="SelfAssessment" element={<SelfAssessment />} />
+            <Route path="AdminResources" element={<AdminResources />} />
             
             {/* Default route for undefined paths */}
             <Route path="*" element={<Navigate to="/" />} />

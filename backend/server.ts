@@ -12,8 +12,8 @@ const port = process.env.PORT || 4000;
 
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`);
-  console.log("Request Headers:", req.headers);
-  console.log("Request Body:", req.body);
+  //console.log("Request Headers:", req.headers);
+  //console.log("Request Body:", req.body);
   next();
 });
 
@@ -25,6 +25,7 @@ app.use(cors());
 quickSearchController.quickSearchRoutes(app); 
 resourcesController.resourcesRoutes(app); 
 userFavoritesController.FavoritesRoutes(app);
+resourcesController.resourcesRoutes(app);
 
 // Start the server
 const server = app.listen(port, () => {

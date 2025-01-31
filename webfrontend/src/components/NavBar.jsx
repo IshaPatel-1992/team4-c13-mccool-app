@@ -77,6 +77,11 @@ const Navbar = () => {
       link: "Resources", 
     },
     {
+      text: "AdminResources", 
+      icon: <MenuBookIcon style={{ fontSize: 30 }} />, 
+      link: "AdminResources", 
+    },
+    {
       text: "Contact Us",
       icon: <ContactMailIcon style={{ fontSize: 30 }} />,
       link: "ContactUs",
