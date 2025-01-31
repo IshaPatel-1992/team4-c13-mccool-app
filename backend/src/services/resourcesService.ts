@@ -33,11 +33,20 @@ class resourcesService extends DataAccess<Iresources> {
   }
 
   // Insert a single resource
-  async insertOne(data: Partial<Iresources>) {
-    const resource = new resourcesModel(data);  // Create a new instance of the model
-    const savedResource = await resource.save(); // Save to the database
-    return savedResource; // Return the saved document
+  /*async insertOne(data: Partial<Iresources>): Promise<Iresources> {
+    try {
+      return super.insertOne(data);
+    } catch (error) {
+      throw new Error(`Error inserting resource: ${(error as Error).message}`);
+    }
+  }*/
+
+    async insertOne(data: Partial<Iresources>) {
+      const resource = new resourcesModel(data);  // Create a new instance of the model
+      const savedResource = await resource.save(); // Save to the database
+      return savedResource; // Return the saved document
   }
+
 
   // Insert multiple resources
   async insertMany(data: Partial<Iresources>[]): Promise<Iresources[]> {
@@ -86,5 +95,4 @@ class resourcesService extends DataAccess<Iresources> {
     }
   }
 }
-
 export default resourcesService;

@@ -18,7 +18,7 @@ import Coaching from "./pages/Coaching";
 import ContactUs from "./pages/ContactUs";
 import ResourceDetailPage from "./pages/ResourceDetailPage.jsx";
 import SelfAssessment from "./pages/SelfAssessment";
-import AdminResources from "./pages/AdminResources.jsx";
+import AdminResources from "./pages/AdminResources";
 
 function App() {
   return (

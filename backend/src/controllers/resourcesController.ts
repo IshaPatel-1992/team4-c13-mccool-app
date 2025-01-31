@@ -121,5 +121,4 @@ class resourcesController {
     
 }
 
-
 export default new resourcesController();
