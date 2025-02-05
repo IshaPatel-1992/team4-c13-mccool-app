@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 import {
   Card,
   CardContent,
@@ -54,6 +56,11 @@ export default function AdminResources() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+  };
+
+  // Handle Quill Editor Change
+  const handleContentChange = (value) => {
+    setFormData({ ...formData, content: value });
   };
 
   const handleSubmit = async () => {
@@ -111,18 +118,83 @@ export default function AdminResources() {
       <Dialog open={isDialogOpen} onClose={() => setDialogOpen(false)} fullWidth maxWidth="sm">
         <DialogTitle>{editIndex !== null ? "Edit Resource" : "Add Resource"}</DialogTitle>
         <DialogContent>
-          {Object.keys(formData).map((key) => (
-            <TextField
-              key={key}
-              fullWidth
-              margin="dense"
-              label={key.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase())}
-              name={key}
-              value={formData[key]}
-              onChange={handleChange}
-              type={key === "publishedDt" ? "date" : "text"}
-            />
-          ))}
+          <TextField
+            fullWidth
+            margin="dense"
+            label="Title"
+            name="title"
+            value={formData.title}
+            onChange={handleChange}
+          />
+          <TextField
+            fullWidth
+            margin="dense"
+            label="Description"
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+          />
+          <TextField
+            fullWidth
+            margin="dense"
+            label="Category"
+            name="category"
+            value={formData.category}
+            onChange={handleChange}
+          />
+          <TextField
+            fullWidth
+            margin="dense"
+            label="Content Type"
+            name="contentType"
+            value={formData.contentType}
+            onChange={handleChange}
+          />
+          <TextField
+            fullWidth
+            margin="dense"
+            label="Author"
+            name="author"
+            value={formData.author}
+            onChange={handleChange}
+          />
+          <TextField
+            fullWidth
+            margin="dense"
+            label="Published Date"
+            name="publishedDt"
+            type="date"
+            value={formData.publishedDt}
+            onChange={handleChange}
+          />
+
+          <Typography variant="body1" style={{ marginTop: "10px", marginBottom: "5px" }}>Content:</Typography>
+          <ReactQuill theme="snow" value={formData.content} onChange={handleContentChange} />
+          <TextField
+            fullWidth
+            margin="dense"
+            label="Content URL"
+            name="contentURL"
+            value={formData.contentURL}
+            onChange={handleChange}
+          />
+          <TextField
+            fullWidth
+            margin="dense"
+            label="Thumbnail URL"
+            name="thumbnailURL"
+            value={formData.thumbnailURL}
+            onChange={handleChange}
+          />
+          <TextField
+            fullWidth
+            margin="dense"
+            label="Tags or Keywords"
+            name="tags"
+            value={formData.tags}
+            onChange={handleChange}
+          />
+
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setDialogOpen(false)} color="secondary">Cancel</Button>
