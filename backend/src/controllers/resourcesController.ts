@@ -10,10 +10,11 @@ class resourcesController {
     constructor() { }
 
     public resourcesRoutes(app: Express): void {
-        this.router.get("/", this.getResources);
-        this.router.get("/:id", this.getResourceById);
-        this.router.put("/:id", this.updateResource);
-        this.router.post("/", this.createResource); 
+        this.router.get("/", this.getResources);        // Get all resources
+        this.router.get("/:id", this.getResourceById);  // Get resource by ID
+        this.router.put("/:id", this.updateResource);   // Update resource by ID
+        this.router.post("/", this.createResource);     // Create new resource
+        //this.router.delete("/:id", this.deleteResource); // Delete resource by ID
         app.use("/api/resources", this.router);
     }
 

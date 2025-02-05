@@ -1,9 +1,25 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Card, CardContent } from "@mui/material";
-import { TextField, Button, Dialog, DialogActions, DialogContent, DialogTitle, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@mui/material";
-
-
+import {
+  Card,
+  CardContent,
+  TextField,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Typography,
+  IconButton,
+} from "@mui/material";
+import { Add, Edit, Delete } from "@mui/icons-material";
 
 export default function AdminResources() {
   const [resources, setResources] = useState([]);
@@ -13,8 +29,8 @@ export default function AdminResources() {
     category: "",
     contentType: "",
     content: "",
-    contentUrl: "",
-    thumbnailURL:"",
+    contentURL: "",
+    thumbnailURL: "",
     author: "",
     publishedDt: "",
   });
@@ -29,7 +45,6 @@ export default function AdminResources() {
   const fetchResources = async () => {
     try {
       const response = await axios.get(`${API_BASE_URL3}/api/resources`);
-      //console.log("Resources", response.data);
       setResources(response.data);
     } catch (error) {
       console.error("Error fetching resources", error);
@@ -37,34 +52,43 @@ export default function AdminResources() {
   };
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = async () => {
     try {
       if (editIndex !== null) {
         const resourceId = resources[editIndex]._id;
-        //console.log("Resource ID to update:", resourceId);
-        //console.log("Data to send:", formData);
-  
-        const response = await axios.put(`${API_BASE_URL3}/api/resources/${resourceId}`, formData);
-        console.log("Resource updated:", response.data);
+        await axios.put(`${API_BASE_URL3}/api/resources/${resourceId}`, formData);
       } else {
-        console.log("Adding new resource:", formData);
         await axios.post(`${API_BASE_URL3}/api/resources`, formData);
       }
       fetchResources();
       setEditIndex(null);
       setDialogOpen(false);
-      setFormData({ title: "", description: "", category: "", contentType: "", content: "", contentUrl: "", thumbnailURL: "", author: "", publishedDt: "" });
+      setFormData({
+        title: "",
+        description: "",
+        category: "",
+        contentType: "",
+        content: "",
+        contentURL: "",
+        thumbnailURL: "",
+        author: "",
+        publishedDt: "",
+      });
     } catch (error) {
       console.error("Error saving resource", error.response ? error.response.data : error.message);
     }
   };
-  
 
   const handleEdit = (index) => {
-    setFormData(resources[index]);
+    const resource = resources[index];
+    setFormData({
+      ...resource,
+      publishedDt: resource.publishedDt ? new Date(resource.publishedDt).toISOString().split("T")[0] : "",
+    });
     setEditIndex(index);
     setDialogOpen(true);
   };
@@ -79,29 +103,36 @@ export default function AdminResources() {
   };
 
   return (
-    <div className="p-6">
-      <Button variant="contained" color="primary" onClick={() => setDialogOpen(true)}>Add Resource</Button>
-      <Dialog open={isDialogOpen} onClose={() => setDialogOpen(false)}>
+    <div style={{ padding: "20px" }}>
+      <Button variant="contained" color="primary" startIcon={<Add />} onClick={() => setDialogOpen(true)}>
+        Add Resource
+      </Button>
+
+      <Dialog open={isDialogOpen} onClose={() => setDialogOpen(false)} fullWidth maxWidth="sm">
         <DialogTitle>{editIndex !== null ? "Edit Resource" : "Add Resource"}</DialogTitle>
         <DialogContent>
-          <TextField fullWidth margin="dense" label="Title" name="title" value={formData.title} onChange={handleChange} />
-          <TextField fullWidth margin="dense" label="Description" name="description" value={formData.description} onChange={handleChange} />
-          <TextField fullWidth margin="dense" label="Category" name="category" value={formData.category} onChange={handleChange} />
-          <TextField fullWidth margin="dense" label="Content Type" name="contentType" value={formData.contentType} onChange={handleChange} />
-          <TextField fullWidth margin="dense" label="Content" name="content" value={formData.content} onChange={handleChange} />
-          <TextField fullWidth margin="dense" label="Content URL" name="contentUrl" value={formData.contentUrl} onChange={handleChange} />
-          <TextField fullWidth margin="dense" label="thumbnail URL" name="thumbnailURL" value={formData.thumbnailURL} onChange={handleChange} />          
-          <TextField fullWidth margin="dense" label="Author" name="author" value={formData.author} onChange={handleChange} />
-          <TextField fullWidth margin="dense" type="date" name="publishedDt" value={formData.publishedDt} onChange={handleChange} />
-          <TextField fullWidth margin="dense" label="Tags" name="tags" value={formData.tags} onChange={handleChange} />
+          {Object.keys(formData).map((key) => (
+            <TextField
+              key={key}
+              fullWidth
+              margin="dense"
+              label={key.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase())}
+              name={key}
+              value={formData[key]}
+              onChange={handleChange}
+              type={key === "publishedDt" ? "date" : "text"}
+            />
+          ))}
         </DialogContent>
         <DialogActions>
+          <Button onClick={() => setDialogOpen(false)} color="secondary">Cancel</Button>
           <Button onClick={handleSubmit} color="primary">{editIndex !== null ? "Update" : "Add"}</Button>
         </DialogActions>
       </Dialog>
 
-      <Card className="mt-6">
+      <Card style={{ marginTop: "20px" }}>
         <CardContent>
+          <Typography variant="h6" gutterBottom>Resource List</Typography>
           <TableContainer component={Paper}>
             <Table>
               <TableHead>
@@ -119,10 +150,10 @@ export default function AdminResources() {
                     <TableCell>{res.title}</TableCell>
                     <TableCell>{res.author}</TableCell>
                     <TableCell>{res.contentType}</TableCell>
-                    <TableCell>{res.publishedDt}</TableCell>
+                    <TableCell>{res.publishedDt ? new Intl.DateTimeFormat("en-CA", { timeZone: "UTC" }).format(new Date(res.publishedDt)) : "N/A"}</TableCell>
                     <TableCell>
-                      <Button onClick={() => handleEdit(index)} color="secondary">Edit</Button>
-                      <Button onClick={() => handleDelete(res._id)} color="error">Delete</Button>
+                      <IconButton onClick={() => handleEdit(index)} color="primary"><Edit /></IconButton>
+                      <IconButton onClick={() => handleDelete(res._id)} color="error"><Delete /></IconButton>
                     </TableCell>
                   </TableRow>
                 ))}

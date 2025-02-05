@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Heart, Save, Eye, Download, Star } from "lucide-react"; // Lucide icons
-import "../pages/Resources.css"; // Add CSS styles for the page
-import { useNavigate } from "react-router-dom"; // React Router for navigation
+import { Container, Grid, Card, CardContent, Typography, TextField, MenuItem, Button, CircularProgress, Alert } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const ResourcesPage = () => {
     const [searchQuery, setSearchQuery] = useState("");
-    const [filter, setFilter] = useState({ contentType: "", tags: "" });
+    const [filter, setFilter] = useState({ contentType: "" });
     const [resources, setResources] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
-    const navigate = useNavigate(); // Initialize navigate
+    const navigate = useNavigate();
 
     const fetchResources = async () => {
         setLoading(true);
@@ -18,97 +17,104 @@ const ResourcesPage = () => {
             const params = new URLSearchParams();
             if (searchQuery) params.append("query", searchQuery);
             if (filter.contentType) params.append("contentType", filter.contentType);
-            if (filter.tags) params.append("tags", filter.tags);
 
             const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:4000";
             const apiEndpoint = `${API_BASE_URL}/api/resources${params.toString() ? `?${params.toString()}` : ""}`;
-            console.log("API endpoint:", apiEndpoint); // check the API endpoint URL
             const response = await fetch(apiEndpoint);
-            console.log("API endpoint Response:", response); // check the response status
-
+            
             if (!response.ok) {
                 throw new Error(`Failed to fetch resources: ${response.status} ${response.statusText}`);
             }
-
             const data = await response.json();
-            console.log("API endpoint Data:", data); // check the structure of the data
             setResources(data);
         } catch (err) {
             setError(err.message);
-            console.error("Error fetching resources:", err);
         } finally {
             setLoading(false);
         }
     };
 
-    // Debounced search
     useEffect(() => {
         const delayDebounceFn = setTimeout(() => {
             fetchResources();
-        }, 500); // Adjust the delay as needed
-
+        }, 500);
         return () => clearTimeout(delayDebounceFn);
     }, [searchQuery, filter]);
 
-    // Update search query
     const handleSearchChange = (event) => {
         setSearchQuery(event.target.value);
     };
 
-    const handleFilterChange = (key, value) => {
-        setFilter((prev) => ({ ...prev, [key]: value }));
-    };
-
-    const handleViewClick = (id) => {
-        navigate(`/resources/${id}`); // Navigate to the resource detail page
+    const handleFilterChange = (event) => {
+        setFilter({ contentType: event.target.value });
     };
 
     return (
-        <div className="resources-page">
-            <h1>Resources</h1>
-            <div className="filters">
-                <input
-                    type="text"
-                    placeholder="Search..."
-                    value={searchQuery} // Correct binding to `searchQuery`
-                    onChange={handleSearchChange} // Use onChange for proper two-way binding
-                />
-                <select
-                    value={filter.contentType}
-                    onChange={(e) => {
-                        console.log("Selected Content Type:", e.target.value); // Debugging log
-                        handleFilterChange("contentType", e.target.value);
-                    }}
-                >
-                    <option value="">All Types</option>
-                    <option value="article">Articles</option>
-                    <option value="book">Books</option>
-                    <option value="video">Videos</option>
-                    <option value="podcast">Podcasts</option>
-                </select>
-            </div>
-            <div className="resource-list">
-                {loading && <p>Loading resources...</p>}
-                {error && <p className="error">{error}</p>}
-                {!loading && !error && resources.length === 0 && <p>No resources found.</p>}
-                {!loading && !error && resources.map((resource) => (
-                    <div className="resource-card" key={resource.id || resource._id}>
-                        { /* <h4>{resource.id || resource._id }</h4>  // Uncomment to display the resource ID */}
-                        <h3>{resource.title}</h3>
-                        <p>{resource.description}</p>
-                        <p><strong>Type:</strong> {resource.contentType}</p>
-                        <div className="actions">
-                            <button
-                                className="read-more-btn"
-                                onClick={() => handleViewClick(resource.id || resource._id)} // Navigate on click
+        <Container maxWidth="lg" sx={{ py: 4 }}>
+            <Typography variant="h4" align="center" color="primary" gutterBottom>
+                Resources
+            </Typography>
+            <Grid container spacing={2} justifyContent="center" sx={{ mb: 3 }}>
+                <Grid item xs={12} sm={6} md={4}>
+                    <TextField
+                        fullWidth
+                        label="Search"
+                        variant="outlined"
+                        value={searchQuery}
+                        onChange={handleSearchChange}
+                    />
+                </Grid>
+                <Grid item xs={12} sm={6} md={4}>
+                    <TextField
+                        fullWidth
+                        select
+                        label="Filter by Type"
+                        variant="outlined"
+                        value={filter.contentType}
+                        onChange={handleFilterChange}
+                    >
+                        <MenuItem value="">All Types</MenuItem>
+                        <MenuItem value="article">Articles</MenuItem>
+                        <MenuItem value="book">Books</MenuItem>
+                        <MenuItem value="video">Videos</MenuItem>
+                        <MenuItem value="podcast">Podcasts</MenuItem>
+                    </TextField>
+                </Grid>
+            </Grid>
+            {loading && <CircularProgress sx={{ display: 'block', mx: 'auto' }} />}
+            {error && <Alert severity="error">{error}</Alert>}
+            {!loading && !error && resources.length === 0 && (
+                <Typography align="center" color="textSecondary">No resources found.</Typography>
+            )}
+            <Grid container spacing={3}>
+                {resources.map((resource) => (
+                    <Grid item xs={12} sm={6} md={4} key={resource.id || resource._id}>
+                        <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                            <CardContent>
+                                <Typography variant="h6" color="secondary" gutterBottom>
+                                    {resource.title}
+                                </Typography>
+                                <Typography variant="body2" color="textSecondary" paragraph>
+                                    {resource.description}
+                                </Typography>
+                                <Typography variant="body2" color="primary" gutterBottom>
+                                    Type: {resource.contentType}
+                                </Typography>
+                            </CardContent>
+                            <Button
+                                sx={{ m: 2 }}
+                                variant="contained"
+                                color="primary"
+                                fullWidth
+                                onClick={() => navigate(`/resources/${resource.id || resource._id}`)}
                             >
                                 Read More
-                            </button>
-                        </div>
-                    </div>
+                            </Button>
+                        </Card>
+                    </Grid>
                 ))}
-            </div>
-        </div>
+            </Grid>
+        </Container>
     );
 };
 
