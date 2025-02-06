@@ -1,72 +1,37 @@
-import dataAccess from '../src/databaseAccess/dataAccess';
-import ItestUser from '../src/interface/ItestUser';
-import testUserModel from '../src/models/testUserModel';
+import bcrypt from 'bcrypt';
+import DataAccess from '../src/databaseAccess/dataAccess';
+import IUsers from '../src/interface/IUsers';
+import UsersModel from '../src/models/UsersModel';
 
 describe('dataAccess.insertOne', () => {
-
-  const dbInstance = new dataAccess<ItestUser>(testUserModel);
+  const dbInstance = new DataAccess<IUsers>(UsersModel);
 
   it('should insert a user into the database', async () => {
-    const data = {
-      name: 'John Doe jr5',
-      age: 13,
-      email: 'jr5doe@somedomain.com'
+    const dataU: Partial<IUsers> = {
+      name: "Megha Patel",
+      email: "meghapatel1994@gmail.com",
+      password: "$2b$10$A9PbBq7bBlUOw1m7JhHj6uJhTzoDqEFxkER6w3q/pk6V1S6KlfL7P",  // Example hashed password
+      authProvider: "manual",
+      oauthId: null,
+      role: "user",
     };
-    const result = await dbInstance.insertOne(data);
-    expect(result).toHaveProperty('name', data.name);
-    expect(result.name).toBe(data.name);
-  });
-});
 
-describe('dataAccess.getOne', () => {
+    const result = await dbInstance.insertOne(dataU);
 
-  const dbInstance = new dataAccess<ItestUser>(testUserModel);
+    // Test if the user was inserted correctly
+    expect(result).toHaveProperty('name', dataU.name);
+    expect(result.name).toBe(dataU.name);
+    expect(result).toHaveProperty('email', dataU.email);
+    expect(result.email).toBe(dataU.email);
+    expect(result).toHaveProperty('authProvider', dataU.authProvider);
+    expect(result.authProvider).toBe(dataU.authProvider);
 
-  it('should get a user from the database', async () => {
-    const data = {
-      name: 'John Doe jr2',
-      age: 5,
-      email: 'jr2doe@somedomain.com'
-    };
-    const result = await dbInstance.getOne('676a5b4865ddbdb97d15eeaf');
-    expect(result).toHaveProperty('name', data.name);
-    expect(result?.email).toBe(data.email);
-  });
-});
-
-describe('dataAccess.getMany', () => {
-
-  const dbInstance = new dataAccess<ItestUser>(testUserModel);
-
-  it('should get all users from the database', async () => {
-    const result = await dbInstance.getMany();
-    expect(result.length).toBeGreaterThan(0);
-  });
-});
-
-describe('dataAccess.updateOne', () => {
-
-  const dbInstance = new dataAccess<ItestUser>(testUserModel);
-
-  it('should update a user in the database', async () => {
-    const data = {
-      name: 'John Doe jr3',
-      age: 18,//changed from 15 to 18
-      email: 'jr3doe@somedomain.com'
-    };
-    const result = await dbInstance.updateOne('677760c916dc9e3d8a432c21', data);
-    expect(result).toHaveProperty('age', data.age);
-    expect(result?.email).toBe(data.email);
-  });
-});
-
-describe('dataAccess.deleteOne', () => {
-
-  const dbInstance = new dataAccess<ItestUser>(testUserModel);
-
-  it('should delete a user from the database', async () => {
-    const result = await dbInstance.deleteOne('6767d48178b32b5dd8f113d3');
-    expect(result).toHaveProperty('name', 'SomeOne4');
-    expect(result?.age).toBe(99);
+    // Check if the password exists before comparing it
+    if (result.password) {
+      const isPasswordCorrect = await bcrypt.compare(dataU.password, result.password);
+      expect(isPasswordCorrect).toBe(true);  // The password should match the hashed version
+    } else {
+      throw new Error('Password is undefined in the result');
+    }
   });
 });

@@ -4,6 +4,7 @@ import resourcesController from './src/controllers/resourcesController';
 import userFavoritesController from './src/controllers/userFavoritesController';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import signupController from './src/controllers/signupController';
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -26,6 +27,7 @@ quickSearchController.quickSearchRoutes(app);
 resourcesController.resourcesRoutes(app); 
 userFavoritesController.FavoritesRoutes(app);
 resourcesController.resourcesRoutes(app);
+signupController.signupRoutes(app);
 
 // Start the server
 const server = app.listen(port, () => {

@@ -3,7 +3,7 @@ import { connectToDatabase } from './database';
 import isEmptyObject from '../utils/isEmptyObject';
 
 class DataAccess<T extends Document> {
-    private model: Model<T>;
+    protected model: Model<T>;
 
     constructor(model: Model<T>) {
         this.model = model;
